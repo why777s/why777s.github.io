@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="wzj在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="why777s" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        struts拦截器｜why777s&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://why777s.github.io/2017/06/17/struts2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    why777s
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://orocn2hbr.bkt.clouddn.com/bike.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/bike.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>struts拦截器</h1>
+                    
+                    <span class="meta">
+                         作者 why777s
+                        <span>
+                          日期 2017-06-17
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#struts"
+                           title="struts">struts</a>
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            struts拦截器
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="0-综述"><a href="#0-综述" class="headerlink" title="0.综述"></a>0.综述</h2><ol>
+<li>拦截器体系是Struts2框架的重要组成部分，我们可以把Struts2看作一个空的容器，大量的内建拦截器完成了该框架的大部分操作（解析请求参数、数据校验、文件上传等）。</li>
+<li>Struts2拦截器是可插拔式的设计（需要就配置，不需要就在配置文件中取消应用）</li>
+<li>Struts2拦截器由struts-default.xml,struts.xml等配置文件管理，容易扩展</li>
+<li>Struts2默认启动大量通用功能的拦截器，只需要配置Action的package继承struts-default包</li>
+</ol>
+<h2 id="1-Struts2中拦截器及配置"><a href="#1-Struts2中拦截器及配置" class="headerlink" title="1.Struts2中拦截器及配置"></a>1.Struts2中拦截器及配置</h2><p>Struts2把大部分核心控制器需要完成的工作按功能分开定义，每个拦截器完成一个功能，而这些拦截器可以由开发者自由选择，灵活组合。（在struts.xml中指定用哪些拦截器）  </p>
+<p><strong>Struts2框架的绝大部分功能都是通过拦截器完成的，当StrutsPrepareAndExecuteFilter拦截到用户请求后，拦截器将会对用户请求进行处理，然后才会调用具体的Action实例的方法来处理请求。</strong></p>
+<blockquote>
+<p>struts2默认启用大量通用功能的拦截器（继承struts-default包就可以）</p>
+</blockquote>
+<h4 id="拦截器相关的配置元素："><a href="#拦截器相关的配置元素：" class="headerlink" title="拦截器相关的配置元素："></a>拦截器相关的配置元素：</h4><ul>
+<li><interceptors..>:定义拦截器，所有的拦截器和拦截器栈都在该元素下定义</interceptors..></li>
+<li><interceptor..>:定义单个拦截器</interceptor..></li>
+<li><interceptor-stack..>:定义拦截器栈</interceptor-stack..></li>
+<li><interceptor-ref..>:表示引用一个拦截器或拦截器栈</interceptor-ref..></li>
+<li><param..>:为拦截器指定参数</param..></li>
+<li><default-interceptor-ref..>:为指定的包配置默认拦截器</default-interceptor-ref..></li>
+</ul>
+<h2 id="2-内建拦截器"><a href="#2-内建拦截器" class="headerlink" title="2.内建拦截器"></a>2.内建拦截器</h2><p>Struts2内建了大量的拦截器，这些拦截器以 name-class 对的形式配置在struts.default.xml中（name：拦截器的名字 class：该拦截器的实现类）<br>有很多很多，在此就列举几个</p>
+<ul>
+<li>autowiring：自动装配的拦截器。用于Struts2和Spring整合，Struts2使用自动装配的方式来访问Spring容器中的Bean。</li>
+</ul>
+<h2 id="3-配置拦截器"><a href="#3-配置拦截器" class="headerlink" title="3.配置拦截器"></a>3.配置拦截器</h2><p>在struts.xml中定义拦截器只需要为拦截器类指定一个拦截器名。</p>
+<blockquote>
+<p>使用<interceptor..>元素定义拦截器</interceptor..></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 通过指定拦截器名和拦截器类实现类来定义拦截器 --&gt;</div><div class="line">&lt;interceptor name=&quot;拦截器名&quot; class=&quot;拦截器实现类&quot;/&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>通过为<interceptor-ref..>元素指定<param..>子元素为拦截器指定参数</param..></interceptor-ref..></p>
+</blockquote>
+<p>系统为拦截器指定参数有两个时机：</p>
+<ul>
+<li>定义拦截器时指定：这种参数值将作为拦截器参数的默认参数值</li>
+<li>使用拦截器时指定：配置Action时作为拦截器参数指定值</li>
+</ul>
+<h3 id="拦截器栈"><a href="#拦截器栈" class="headerlink" title="拦截器栈"></a>拦截器栈</h3><p>还可以将多<strong>个拦截器连在一起组成拦截器栈</strong>，例如，需要在执行Action前同时做登陆检查、安全检查和记录日志，则可以把这三个操作对应的拦截器组成一个拦截器栈.</p>
+<blockquote>
+<p>使用<interceptor-stack..>元素定义拦截器栈，在该元素中使用<interceptor-ref..>定义多个拦截器</interceptor-ref..></interceptor-stack..></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;interceptor-stack name=&quot;拦截器栈名&quot;&gt;</div><div class="line">    &lt;interceptor-ref name=&quot;拦截器1&quot;/&gt;</div><div class="line">    &lt;interceptor-ref name=&quot;拦截器2&quot;/&gt;</div><div class="line">&lt;/interceptor&gt;</div></pre></td></tr></table></figure>
+<h2 id="4-使用拦截器"><a href="#4-使用拦截器" class="headerlink" title="4.使用拦截器"></a>4.使用拦截器</h2><h4 id="拦截器的拦截行为会在Action的execute方法执行之前被执行。"><a href="#拦截器的拦截行为会在Action的execute方法执行之前被执行。" class="headerlink" title="拦截器的拦截行为会在Action的execute方法执行之前被执行。"></a>拦截器的拦截行为会在Action的execute方法执行之前被执行。</h4><blockquote>
+<p>在Action中定义<interceptor-ref..>元素</interceptor-ref..></p>
+</blockquote>
+<p>使用拦截器需要两个步骤：</p>
+<ol>
+<li>通过<interceptor..>元素来定义拦截器 （在<package..>中定义）</package..></interceptor..></li>
+<li>通过<interceptor-ref..>元素来使用拦截器（在具体的<action..>中定义）</action..></interceptor-ref..></li>
+</ol>
+<h2 id="5-配置默认拦截器"><a href="#5-配置默认拦截器" class="headerlink" title="5.配置默认拦截器"></a>5.配置默认拦截器</h2><p>配置一个包时，可以为其指定默认拦截器。一旦为某个包指定了默认的拦截器，如果该包中Action<strong>没有</strong>显示指定拦截器，则默认的拦截器会起作用。</p>
+<blockquote>
+<p><default-interceptor-ref..> 该元素作为<package..>的子元素 </package..></default-interceptor-ref..></p>
+</blockquote>
+<h2 id="6-实现拦截器类"><a href="#6-实现拦截器类" class="headerlink" title="6.实现拦截器类"></a>6.实现拦截器类</h2><p>自己设计拦截器类只需要继承<strong>Interceptor接口</strong>（如果不需要打开资源，一般继承AbstrackIntercptorlei类）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public interface Interceptor extends Serializable&#123;</div><div class="line">    //销毁该拦截器之前的回调方法</div><div class="line">    void destory();</div><div class="line">    //初始化该拦截器的回调方法</div><div class="line">    void init();</div><div class="line">    //拦截器实现拦截的逻辑方法</div><div class="line">    String intercept(ActionInvocation invocation) throws Exception;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>init:拦截器实例化之后，执行之前回调的方法。每个拦截器init()方法只执行一次，主要用于初始化资源</li>
+<li>destory：用于销毁在init()方法里打开的资源</li>
+<li>intercept(ActionInvocation invocation):该方法是用户需要实现的拦截动作</li>
+</ul>
+<p>Struts2提供了一个AbstractInterceptor类，该类已经提供了一个init和destory的空实现，如果拦截器不需要打开资源，则可以不用实现这两个方法。直接继承这个方法就好。</p>
+<h2 id="7-拦截器的方法过滤"><a href="#7-拦截器的方法过滤" class="headerlink" title="7.拦截器的方法过滤"></a>7.拦截器的方法过滤</h2><p>让拦截器不拦截所有方法，而是拦截指定的方法。<br>如果用户需要自己实现的拦截器支持方法过滤特性，只需要继承MethodFilterInterceptor类。该类覆写了AbstractInterceptor类的intercept方法，提供了doIntercept抽象方法。所以用户需要覆写doIntercept方法，实现对Action的拦截逻辑。  </p>
+<p>MethodFilterInterceptor方法中额外添加了如下两个方法：</p>
+<ul>
+<li>public void setExcludeMethods(String excludeMethods):</li>
+<li>public void setIncludeMetthods(String includeMethods):设置需要过滤的方法，这些过滤出来的方法会被拦截</li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/06/16/struts开发流程/" data-toggle="tooltip" data-placement="top"
+                           title="struts开发流程">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-综述"><span class="toc-text">0.综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Struts2中拦截器及配置"><span class="toc-text">1.Struts2中拦截器及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拦截器相关的配置元素："><span class="toc-text">拦截器相关的配置元素：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-内建拦截器"><span class="toc-text">2.内建拦截器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-配置拦截器"><span class="toc-text">3.配置拦截器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拦截器栈"><span class="toc-text">拦截器栈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-使用拦截器"><span class="toc-text">4.使用拦截器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拦截器的拦截行为会在Action的execute方法执行之前被执行。"><span class="toc-text">拦截器的拦截行为会在Action的execute方法执行之前被执行。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-配置默认拦截器"><span class="toc-text">5.配置默认拦截器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-实现拦截器类"><span class="toc-text">6.实现拦截器类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-拦截器的方法过滤"><span class="toc-text">7.拦截器的方法过滤</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#struts"
+                           title="struts">struts</a>
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/why777s">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; why777s 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://why777s.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://orocn2hbr.bkt.clouddn.com/head.png">
+</body>
+
+</html>

@@ -80,6 +80,14 @@
                         
 							
                         <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
                             <a href="/tags/">tags</a>
                         </li>
 							
@@ -128,13 +136,13 @@
 
 
 <img class="wechat-title-img"
-     src="nullimg/post-default.jpg">
+     src="http://orocn2hbr.bkt.clouddn.com/view.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('nullimg/post-default.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/view.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
     }
 
     
@@ -155,6 +163,12 @@
                     </span>
                     <div class="tags text-center">
                         
+                        <a class="tag" href="/tags/#struts"
+                           title="struts">struts</a>
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
                     </div>
                 </div>
             </div>
@@ -173,7 +187,7 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h4 id="1-在web-xml中定义核心Filter拦截用户请求"><a href="#1-在web-xml中定义核心Filter拦截用户请求" class="headerlink" title="1.在web.xml中定义核心Filter拦截用户请求"></a>1.在web.xml中定义核心Filter拦截用户请求</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 定义Struts 2的核心Filter --&gt;</div><div class="line">&lt;filter&gt;</div><div class="line">    &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line">    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</div><div class="line">&lt;/filter&gt;</div><div class="line">&lt;!-- 让Struts的核心Filter拦截所有请求 --&gt;</div><div class="line">&lt;filter-mapping&gt;</div><div class="line">    &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line">    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line">&lt;/filter-mapping&gt;</div></pre></td></tr></table></figure>
+                <h4 id="1-在web-xml中定义核心Filter拦截用户请求"><a href="#1-在web-xml中定义核心Filter拦截用户请求" class="headerlink" title="1.在web.xml中定义核心Filter拦截用户请求"></a>1.在web.xml中定义核心Filter拦截用户请求</h4><p>test2<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 定义Struts 2的核心Filter --&gt;</div><div class="line">&lt;filter&gt;</div><div class="line">    &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line">    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</div><div class="line">&lt;/filter&gt;</div><div class="line">&lt;!-- 让Struts的核心Filter拦截所有请求 --&gt;</div><div class="line">&lt;filter-mapping&gt;</div><div class="line">    &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line">    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line">&lt;/filter-mapping&gt;</div></pre></td></tr></table></figure></p>
 <h4 id="3-定义处理用户请求的Action类"><a href="#3-定义处理用户请求的Action类" class="headerlink" title="3.定义处理用户请求的Action类"></a>3.定义处理用户请求的Action类</h4><p>Action属于MVC中的C。控制器由StrutsPrepareAndExecuteFilter核心控制器和Action业务控制器组成。</p>
 <h4 id="4-配置Action"><a href="#4-配置Action" class="headerlink" title="4.配置Action"></a>4.配置Action</h4><h6 id="e-g-指定如果用户请求URL为xxx，则使用myClass来处理"><a href="#e-g-指定如果用户请求URL为xxx，则使用myClass来处理" class="headerlink" title="e.g 指定如果用户请求URL为xxx，则使用myClass来处理"></a>e.g 指定如果用户请求URL为xxx，则使用myClass来处理</h6><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;action name=&quot;xxx&quot; class=&quot;myClass&quot;&gt;</div><div class="line">    ...</div><div class="line">&lt;/action&gt;</div></pre></td></tr></table></figure>
 <h4 id="5-配置处理结果和物理视图资源之间的对应关系"><a href="#5-配置处理结果和物理视图资源之间的对应关系" class="headerlink" title="5.配置处理结果和物理视图资源之间的对应关系"></a>5.配置处理结果和物理视图资源之间的对应关系</h4><h6 id="e-g-指定三个处理结果与物理视图之间的映射关系-（如当xxx类返回input时，跳转到-login-jsp页面）"><a href="#e-g-指定三个处理结果与物理视图之间的映射关系-（如当xxx类返回input时，跳转到-login-jsp页面）" class="headerlink" title="e.g 指定三个处理结果与物理视图之间的映射关系  （如当xxx类返回input时，跳转到/login.jsp页面）"></a>e.g 指定三个处理结果与物理视图之间的映射关系  （如当xxx类返回input时，跳转到/login.jsp页面）</h6><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;action name=&quot;login&quot; class=&quot;xxx&quot;&gt;</div><div class="line">    &lt;result name=&quot;input&quot;&gt;/login.jsp&lt;/result&gt;</div><div class="line">    &lt;result name=&quot;error&quot;&gt;/error.jsp&lt;/result&gt;</div><div class="line">    &lt;result name=&quot;success&quot;&gt;/welcome.jsp&lt;/result&gt;</div><div class="line">&lt;/action&gt;</div></pre></td></tr></table></figure>
@@ -183,10 +197,15 @@
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/2017/06/17/struts2/" data-toggle="tooltip" data-placement="top"
+                           title="struts拦截器">&larr; Previous Post</a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/2017/06/16/hello-hexo/" data-toggle="tooltip" data-placement="top"
-                           title="hello hexo">Next Post &rarr;</a>
+                        <a href="/2017/06/16/hello-world/" data-toggle="tooltip" data-placement="top"
+                           title="Hello World">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -224,6 +243,12 @@
                     </h5>
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/#struts"
+                           title="struts">struts</a>
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
                     </div>
                 </section>
                 
@@ -252,35 +277,8 @@
                 <ul class="list-inline text-center">
                 
                 
-                    <li>
-                        <a target="_blank" href="https://twitter.com/ehazon">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
                 
 
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/why777s">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
                 
 
                 
@@ -375,7 +373,7 @@
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <!--wechat title img-->
-<img class="wechat-title-img" src="null">
+<img class="wechat-title-img" src="http://orocn2hbr.bkt.clouddn.com/head.png">
 </body>
 
 </html>
