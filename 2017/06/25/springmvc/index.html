@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Hello World｜why777s&#39;s blog
+        SpringMVC学习笔记①--SpringMVC开发流程｜why777s&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://why777s.github.io/2017/06/16/hello-world/">
+    <link rel="canonical" href="http://why777s.github.io/2017/06/25/springmvc/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -136,13 +136,13 @@
 
 
 <img class="wechat-title-img"
-     src="/bike.jpg">
+     src="http://orocn2hbr.bkt.clouddn.com/night.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('/bike.jpg')
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/night.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
     }
 
     
@@ -153,15 +153,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>Hello World</h1>
+                    <h1>SpringMVC学习笔记①--SpringMVC开发流程</h1>
                     
                     <span class="meta">
                          作者 why777s
                         <span>
-                          日期 2017-06-16
+                          日期 2017-06-25
                          </span>
                     </span>
                     <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#springmvc"
+                           title="springmvc">springmvc</a>
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
                         
                     </div>
                 </div>
@@ -170,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            Hello World
+            SpringMVC学习笔记①--SpringMVC开发流程
         </span>
     </div>
 </header>
@@ -181,26 +187,31 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+                <h4 id="SpringMVC应用的开发步骤"><a href="#SpringMVC应用的开发步骤" class="headerlink" title="SpringMVC应用的开发步骤"></a>SpringMVC应用的开发步骤</h4><ol>
+<li><p>在web.xml中定义前端控制器DispatcherServlet来拦截用户请求。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 定义Spring MVC的前端控制器 --&gt;</div><div class="line">  &lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</div><div class="line">    &lt;init-param&gt;</div><div class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">      &lt;param-value&gt;WEB-INF/springmvc.xml&lt;/param-value&gt;</div><div class="line">    &lt;/init-param&gt;</div><div class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</div><div class="line">  &lt;/servlet&gt;</div><div class="line">  &lt;!-- 让SpringMVC拦截所有请求 --&gt;</div><div class="line">  &lt;servlet-mapping&gt;</div><div class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</div><div class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</div><div class="line">  &lt;/servlet-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果需要以POST方式提交请求，则定义包含表单数据的JSP页面。如果仅仅以GET方式发送请求，则无须经过这一步。</p>
+</li>
+<li>定义处理用户请求的处理类</li>
+<li><p>配置处理类，一般都用基于注解的Controller。可以看出这种基于注解的方式比常规的（如struts）在xml中配置要方便的多。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@Controller</div><div class="line">public class XxxController &#123;</div><div class="line">    @RequestMapping(&quot;/hello&quot;)</div><div class="line">    public ModelAndView hello()&#123;</div><div class="line">      ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>编写视图资源：处理类一般都返回一个ModelAndView对象，一般其都包含了返回的视图名，这个视图名就代表了需要显示的物理视图资源。</p>
+</li>
+</ol>
+<h4 id="SpringMVC执行的流程"><a href="#SpringMVC执行的流程" class="headerlink" title="SpringMVC执行的流程"></a>SpringMVC执行的流程</h4><p>有点复杂，以后再整理</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/06/16/struts开发流程/" data-toggle="tooltip" data-placement="top"
-                           title="struts开发流程">&larr; Previous Post</a>
-                    </li>
                     
+                    <li class="next">
+                        <a href="/2017/06/21/struts文件上传/" data-toggle="tooltip" data-placement="top"
+                           title="struts文件上传">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -215,7 +226,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#SpringMVC应用的开发步骤"><span class="toc-text">SpringMVC应用的开发步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SpringMVC执行的流程"><span class="toc-text">SpringMVC执行的流程</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -236,6 +247,12 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
+                        
+                        <a class="tag" href="/tags/#springmvc"
+                           title="springmvc">springmvc</a>
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
                         
                     </div>
                 </section>
