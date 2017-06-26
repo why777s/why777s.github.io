@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="wzj在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="why777s" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        SpringMVC学习笔记②--常用注解类｜why777s&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://why777s.github.io/2017/06/26/springmvc2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    why777s
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://orocn2hbr.bkt.clouddn.com/night.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/night.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>SpringMVC学习笔记②--常用注解类</h1>
+                    
+                    <span class="meta">
+                         作者 why777s
+                        <span>
+                          日期 2017-06-26
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#springmvc"
+                           title="springmvc">springmvc</a>
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            SpringMVC学习笔记②--常用注解类
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="SpringMVC学习笔记②——常用注解类"><a href="#SpringMVC学习笔记②——常用注解类" class="headerlink" title="SpringMVC学习笔记②——常用注解类"></a>SpringMVC学习笔记②——常用注解类</h2><h4 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h4><ol>
+<li>org.springframework.stereotype.Controller 注解类型用于指示Spring类的实例是一个控制器。  </li>
+<li>为了保证Spring能找到控制器，需要如下两个配置：<ul>
+<li>在SpringMVC配置文件的头文件中引入spring-context。（这个一般创建了自动就有的）</li>
+<li>在springmvc.xml中配置<code>&lt;context:component-scan base-package=&quot;&quot;/&gt;</code>，扫描指定包下带有Spring注解的类称为Spring的Bean</li>
+</ul>
+</li>
+</ol>
+<h4 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h4><ol>
+<li>org.springframework.web.bind.annotation.RequestMapping 注解类型指示Spring用哪一个类或方法来处理请求动作，该注解可用于类或者方法。若注释一个控制器类，则该类的所有请求都被映射到value属性所指示的路径下。   </li>
+<li>@RequestMapping 注解可指定如下属性：<ul>
+<li>value属性：@RequestMapping的默认属性。将url映射到方法上（若只有唯一的属性，则可以省略属性名）</li>
+<li>method属性：指示仅处理哪些HTTP请求方式（GET、POST）（若不指定，代表处理任意的HTTP请求）</li>
+<li>consumes属性：指定处理请求的提交内容类型（Content-Type），如”application/JSON”</li>
+<li>produces属性：指定返回的内容类型</li>
+<li>params属性：指定request中必须包含某些参数值时，才让该方法处理</li>
+<li>headers属性：指定request中必须包含某些指定的header值时，才让该方法处理      </li>
+</ul>
+</li>
+<li>ModelAndView<br>对于MVC框架，Controller执行业务逻辑，用于产生数据模型（Model），而视图（View）则用于渲染模型数据。<br>Spring提供了多钟途径输出模型数据，如：  <ul>
+<li>Model和ModelMap</li>
+<li>ModelAndView(常用)：既包含模型数据信息，也包含视图信息</li>
+<li>@ModelAttribute</li>
+<li>@SessionAttributes</li>
+</ul>
+</li>
+</ol>
+<h4 id="参数绑定注解：-RequestParam、-PathVariable、-RequestHeader"><a href="#参数绑定注解：-RequestParam、-PathVariable、-RequestHeader" class="headerlink" title="参数绑定注解：@RequestParam、@PathVariable、@RequestHeader"></a>参数绑定注解：@RequestParam、@PathVariable、@RequestHeader</h4><h4 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h4><ol>
+<li>org.springframework.web.bind.annotation.RequestParam 注解类型用于将指定的请求参数赋值给方法中形参。  </li>
+<li>使用@RequestParam可指定如下的参数：<ul>
+<li>name</li>
+<li>value</li>
+<li>required：指示参数是否必须绑定，默认为true</li>
+<li>defaultValue：如果没有传递参数而使用的默认值<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public String register(</div><div class="line">    //将请求中的uid参数的值赋给id,别的同理</div><div class="line">        @RequestParam(&quot;uid&quot;) String id,</div><div class="line">        @RequestParam(&quot;username&quot;) String uname,</div><div class="line">        @RequestParam(&quot;userpwd&quot;) String upwd ) &#123;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h4><ol>
+<li>org.springframework.web.bind.annotation.PathVariable 注解可以非常方便地获得请求URL中的动态参数。  </li>
+<li>@PathVariable只有一个属性value，表示绑定的名称  <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 将url中模板变量&#123;userID&#125;绑定到通过@PathVariable的同名参数上</div><div class="line">@RequestMapping(value=&quot;/xxx/&#123;userId&#125;&quot;)</div><div class="line">public void test(@PathVariable String userID)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a>@RequestHeader</h4><ol>
+<li>org.springframework.web.bind.annotation.RequestHeader 注解用于将请求的头信息区数据映射到功能处理方法的参数上。</li>
+<li>可指定如下几个属性：<ul>
+<li>name</li>
+<li>value</li>
+<li>required</li>
+<li>defaultValue</li>
+</ul>
+</li>
+</ol>
+<h4 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a>@CookieValue</h4><ol>
+<li>org.springframework.bind.annotation.CookieValue 注解用于将请求的Cookie数据映射到功能处理的方法上。</li>
+<li>可指定如下几个属性：<ul>
+<li>name</li>
+<li>value</li>
+<li>required</li>
+<li>defaultValue</li>
+</ul>
+</li>
+</ol>
+<h4 id="SessionAttributes"><a href="#SessionAttributes" class="headerlink" title="@SessionAttributes"></a>@SessionAttributes</h4><ol>
+<li>org.springframework.web.bind.annotation.SessionAttributes 注解允许我们有选择地<strong>指定Model中的哪些属性需要转存到HttpSession对象中</strong>。  </li>
+<li>可指定的属性：<ul>
+<li>names：Model中属性的名称（即存储在HttpSession中的属性名称）</li>
+<li>value：names属性的别名</li>
+<li>types：指示参数是否必须绑定</li>
+</ul>
+</li>
+<li>@SessionAttributes 只能声明在类前，不能声明在方法上。<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@SessionAttributes(&quot;user&quot;)</div><div class="line">public class UserController&#123;</div><div class="line">    ...</div><div class="line">    model.addAttribute(&quot;user&quot;, user);</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line">// @SessionAttributes也可以这样写</div><div class="line">@SessionAttributes(types=&#123;User.class,Depart.class&#125;, value=&#123;&quot;user&quot;,&quot;dept&quot;&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a>@ModelAttribute</h4><ol>
+<li>org.springframework.web.bind.annotaion.ModelAttribute 注解将请求参数绑定到Model对象 </li>
+<li>@ModelAttribute只支持一个属性value，类型为String，表示绑定的属性名称</li>
+</ol>
+<blockquote>
+<p>注意：被@ModelAttribute注释的方法会在Controller每个方法执行前被执行！</p>
+</blockquote>
+<ol>
+<li><p>@ModelAttribute的使用方式</p>
+<ul>
+<li><p>@ModelAttribute(value=””) 注释返回具体类的方法<br>使用@ModelAttribute注解的value属性来指定model属性的名称，<strong>model属性的值就是方法的返回值</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@ModelAttribute(&quot;uid&quot;)</div><div class="line">public String xxx ( </div><div class="line">    @RequestParam(&quot;uid&quot;) String uuid )&#123;</div><div class="line">      return uuid;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>@ModelAttribute注释void返回值的方法<br><strong>model属性名称和值由model.addAttribute()实现，但是必须在方法中加入一个Model类型的参数</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@ModelAttribute</div><div class="line">public void xxx(</div><div class="line">        ..., ...,</div><div class="line">        Model model)&#123;</div><div class="line">    ...</div><div class="line">    model.addAttribute();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>@ModelAttribute注释返回具体类的方法<br><strong>model的属性没有显示指定，它由返回类型隐含表示，如果这个方法返回A类型，则这个属性的名称是A</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@ModelAttribute</div><div class="line">public User usermodel(</div><div class="line">        @RequestParam(&quot;loginname&quot;) String lname,</div><div class="line">        @RequestParam(&quot;password&quot;)  String pwd)&#123;</div><div class="line">    if(...) return user;</div><div class="line">    else return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>@ModelAttribute和@RequestMapping同时注释一个方法<br>  <strong>同时注释一个方法，则这个方法的返回值不是视图名称，而是model属性的值。<br>  Model的属性名由@ModelAttribute的value确定。视图名称是@RequestMapping中的value值</strong></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">@RequestMapping(&quot;/abc&quot;)</div><div class="line">@ModelAttribute(&quot;username&quot;)</div><div class="line">public String xxx()&#123;</div><div class="line">    return &quot;Hello world!&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>@ModelAttribute注释一个方法的参数</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// @ModelAttribute注释的方法会在Controller每个方法执行前被执行！</div><div class="line">// model属性名称就是value值，即user，model属性对象就是方法的返回值</div><div class="line">@ModelAttribute(&quot;user&quot;)</div><div class="line">public User usermodel1(</div><div class="line">        @RequestParam(&quot;loginname&quot;) String lname,</div><div class="line">        @RequestParam(&quot;password&quot;)  String pwd)&#123;</div><div class="line">    User user = new User();</div><div class="line">    user.setLoginname(lname);</div><div class="line">    user.setPassword(pwd);</div><div class="line">    return user;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@RequestMapping(&quot;/...&quot;)</div><div class="line">public String login(@ModelAttribute(&quot;user&quot;) User user)&#123; //参数user的值就是usermodel1()方法中的model属性</div><div class="line">    user.setUsername(&quot;admin1);</div><div class="line">    return &quot;...&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/06/25/springmvc/" data-toggle="tooltip" data-placement="top"
+                           title="SpringMVC学习笔记①--SpringMVC开发流程">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringMVC学习笔记②——常用注解类"><span class="toc-text">SpringMVC学习笔记②——常用注解类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Controller"><span class="toc-text">@Controller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RequestMapping"><span class="toc-text">@RequestMapping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数绑定注解：-RequestParam、-PathVariable、-RequestHeader"><span class="toc-text">参数绑定注解：@RequestParam、@PathVariable、@RequestHeader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RequestParam"><span class="toc-text">@RequestParam</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PathVariable"><span class="toc-text">@PathVariable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RequestHeader"><span class="toc-text">@RequestHeader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CookieValue"><span class="toc-text">@CookieValue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SessionAttributes"><span class="toc-text">@SessionAttributes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ModelAttribute"><span class="toc-text">@ModelAttribute</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#springmvc"
+                           title="springmvc">springmvc</a>
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/why777s">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; why777s 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://why777s.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://orocn2hbr.bkt.clouddn.com/head.png">
+</body>
+
+</html>
