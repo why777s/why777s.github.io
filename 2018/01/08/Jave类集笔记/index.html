@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -291,7 +291,132 @@
 <p>除了输出内容，还可用于删除当前的内容，直接使用remove()即可。</p>
 <h4 id="2-双向迭代输出-ListIterator"><a href="#2-双向迭代输出-ListIterator" class="headerlink" title="2.双向迭代输出:ListIterator"></a>2.双向迭代输出:ListIterator</h4><p>Iterator仅是由前向后单向输出，而此时如果想实现由后向前或是由前向后的双向输出，则必须使用Iterator的子接口——ListIterator。<br>若想从后向前遍历，则通过public boolean hasPrevious()判断是否有上一条件以及通过public E previous()取出当前元素。</p>
 <h4 id="3-foreach"><a href="#3-foreach" class="headerlink" title="3. foreach"></a>3. foreach</h4><p>foreach除了可以完成数组的输出，对于集合也同样支持.</p>
-<h3 id="四-Map接口"><a href="#四-Map接口" class="headerlink" title="四. Map接口"></a>四. Map接口</h3>
+<h3 id="四-Map接口"><a href="#四-Map接口" class="headerlink" title="四. Map接口"></a>四. Map接口</h3><p>map接口每次操作的是一对对象，即二元偶对象，Map接口中的每个元素都使用“Key-value”的形式存储在集合中。在Map接口上也应用了泛型，必须同时设置好key和value的类型。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public void clear()</td>
+<td>清空</td>
+</tr>
+<tr>
+<td>public boolean containsKey</td>
+<td>判断指定的key是否存在</td>
+</tr>
+<tr>
+<td>public boolean containsValue</td>
+<td>判断指定的Value是否存在 </td>
+</tr>
+<tr>
+<td>public Set<map.entry<k,v>&gt; entrySet()</map.entry<k,v></td>
+<td>将Map对象变为set集合 </td>
+</tr>
+<tr>
+<td>public boolean equals(Object o)</td>
+<td>对象比较</td>
+</tr>
+<tr>
+<td>public V get(Object key)</td>
+<td>根据key取得value</td>
+</tr>
+<tr>
+<td>public V put(K key,V value)</td>
+<td>向集合中增加元素</td>
+</tr>
+<tr>
+<td>public V remove(Object key)</td>
+<td>根据key删除value</td>
+</tr>
+<tr>
+<td>public int size()</td>
+<td>求集合的长度</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-Entry接口"><a href="#1-Entry接口" class="headerlink" title="1. .Entry接口"></a>1. .Entry接口</h4><p>Map.entry接口是Map内部定义的一个接口，专门用来保存key-value内容。在Map接口的操作中，所有的内容都是通过key-value的形式保存数据的，那么对于集合来说，实际上是将”key-value”的数据保存在了Map.Entry接口的实例之后，再在Map集合中插入的是一个Map.Entry的实例化对象。</p>
+<h4 id="2-Map接口的常用子类"><a href="#2-Map接口的常用子类" class="headerlink" title="2. Map接口的常用子类"></a>2. Map接口的常用子类</h4><ol>
+<li>HashTable：无序存放，key不允许重复</li>
+<li><strong>HashMap</strong>：无序存放，key不允许重复<blockquote>
+<p>HashMap和HashTable的区别：<br>HashMap于JDK1.2之后推出，属于新的操作类；相较于采用同步处理方式的HashTable，HashMap采用异步处理方式，性能更高；HashMap允许将key设为null。</p>
+</blockquote>
+</li>
+<li><p><strong>TreeMap</strong>：可以排序的Map集合，按集合中的key排序，key不允许重复</p>
+<blockquote>
+<p>TreeMap是实现了SortedMap的子类，只要是实现了SortedMap接口的子类，都属于排序的子类。  </p>
+</blockquote>
+</li>
+<li><p>SortedMap接口扩展的方法</p>
+</li>
+<li></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>header 1</th>
+<th>header 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public K firstKey()</td>
+<td>返回第一个元素的key</td>
+</tr>
+<tr>
+<td>public K lastKey()</td>
+<td>返回最后一个元素的key</td>
+</tr>
+<tr>
+<td>public SortedMap<k,v> headMap(K tokey)</k,v></td>
+<td>返回小于等于指定key的部分集合</td>
+</tr>
+<tr>
+<td>public SortedMap<k,v> subMap(K fromKey,K toKey)</k,v></td>
+<td>返回指定key范围的集合</td>
+</tr>
+<tr>
+<td>public SortedMap<k,v> tailMap(K fromKey)</k,v></td>
+<td>返回大于指定key范围的集合</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Map的输出（Map更多的是查询，输出并不常用）"><a href="#Map的输出（Map更多的是查询，输出并不常用）" class="headerlink" title="Map的输出（Map更多的是查询，输出并不常用）"></a>Map的输出（Map更多的是查询，输出并不常用）</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public static void main(String[] args) &#123;</div><div class="line">    Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</div><div class="line">    map.put(&quot;Hello&quot;,&quot;world&quot;);</div><div class="line">    map.put(&quot;I&apos;m&quot;,&quot;Hungry&quot;);</div><div class="line">    Set&lt;Map.Entry&lt;String,String&gt;&gt; set = map.entrySet();  //将Map接口实例变为Set接口实例</div><div class="line">    Iterator&lt;Map.Entry&lt;String,String&gt;&gt; iter = set.iterator(); //Iterator对象</div><div class="line">    while (iter.hasNext())&#123;</div><div class="line">        Map.Entry&lt;String,String&gt; me = iter.next(); //找到Map.Entry实例</div><div class="line">        System.out.println(me.getKey()+&quot;--&gt;&quot;+me.getValue());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="五-Stack类"><a href="#五-Stack类" class="headerlink" title="五. Stack类"></a>五. Stack类</h3><p>在Java中使用Stack类进行栈的操作</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public boolean empty()</td>
+<td>测试栈是否为空</td>
+</tr>
+<tr>
+<td>public E peek()</td>
+<td>查看栈顶，但不删除</td>
+</tr>
+<tr>
+<td>public E pop()</td>
+<td>出栈</td>
+</tr>
+<tr>
+<td>public E push(E item)</td>
+<td>入栈</td>
+</tr>
+<tr>
+<td>public int search(Object o)</td>
+<td>查找</td>
+</tr>
+</tbody>
+</table>
+
                 <hr>
                 
 
@@ -316,7 +441,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-List接口"><span class="toc-text">一. List接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-List接口的定义"><span class="toc-text">1.List接口的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-List接口常用子类"><span class="toc-text">2.List接口常用子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-Set接口"><span class="toc-text">二. Set接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Set接口常用子类"><span class="toc-text">Set接口常用子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-集合的输出"><span class="toc-text">三. 集合的输出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-迭代输出-Iterator"><span class="toc-text">1.迭代输出:Iterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-双向迭代输出-ListIterator"><span class="toc-text">2.双向迭代输出:ListIterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-foreach"><span class="toc-text">3. foreach</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-Map接口"><span class="toc-text">四. Map接口</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-List接口"><span class="toc-text">一. List接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-List接口的定义"><span class="toc-text">1.List接口的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-List接口常用子类"><span class="toc-text">2.List接口常用子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-Set接口"><span class="toc-text">二. Set接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Set接口常用子类"><span class="toc-text">Set接口常用子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-集合的输出"><span class="toc-text">三. 集合的输出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-迭代输出-Iterator"><span class="toc-text">1.迭代输出:Iterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-双向迭代输出-ListIterator"><span class="toc-text">2.双向迭代输出:ListIterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-foreach"><span class="toc-text">3. foreach</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-Map接口"><span class="toc-text">四. Map接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Entry接口"><span class="toc-text">1. .Entry接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Map接口的常用子类"><span class="toc-text">2. Map接口的常用子类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Map的输出（Map更多的是查询，输出并不常用）"><span class="toc-text">Map的输出（Map更多的是查询，输出并不常用）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-Stack类"><span class="toc-text">五. Stack类</span></a></li></ol>
                 </div>
             </div>
         </div>
