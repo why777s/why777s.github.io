@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Hello World｜why777s&#39;s blog
+        Jave类集笔记｜why777s&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://why777s.github.io/2017/06/16/hello-world/">
+    <link rel="canonical" href="http://why777s.github.io/2018/01/08/Jave类集笔记/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -136,13 +136,13 @@
 
 
 <img class="wechat-title-img"
-     src="bike.jpg">
+     src="http://orocn2hbr.bkt.clouddn.com/night.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('bike.jpg')
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/night.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
     }
 
     
@@ -153,15 +153,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>Hello World</h1>
+                    <h1>Jave类集笔记</h1>
                     
                     <span class="meta">
                          作者 why777s
                         <span>
-                          日期 2017-06-16
+                          日期 2018-01-08
                          </span>
                     </span>
                     <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
                         
                     </div>
                 </div>
@@ -170,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            Hello World
+            Jave类集笔记
         </span>
     </div>
 </header>
@@ -181,26 +184,124 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+                <h3 id="一-List接口"><a href="#一-List接口" class="headerlink" title="一. List接口"></a>一. List接口</h3><h4 id="1-List接口的定义"><a href="#1-List接口的定义" class="headerlink" title="1.List接口的定义"></a>1.List接口的定义</h4><ol>
+<li>List是Collection的子接口，其中可以保存各个重复的内容。</li>
+<li>常用的扩展方法  </li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public void add(int index,E element)</td>
+<td>在指定位置增加元素</td>
+</tr>
+<tr>
+<td>E get(int index)</td>
+<td>返回指定位置的元素</td>
+</tr>
+<tr>
+<td>public int indexOf(Object o)</td>
+<td>查找指定位置的元素</td>
+</tr>
+<tr>
+<td>public E remove(int index)</td>
+<td>按指定的位置删除元素</td>
+</tr>
+<tr>
+<td>public List<e> subList(int fromIndex,int toIndex)</e></td>
+<td>取出集合中的子集合</td>
+</tr>
+<tr>
+<td>public E set(int index,E element)</td>
+<td>替换指定位置的元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-List接口常用子类"><a href="#2-List接口常用子类" class="headerlink" title="2.List接口常用子类"></a>2.List接口常用子类</h4><ol>
+<li><strong>ArrayList</strong></li>
+<li><strong>LinkedList</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public void addFirst(E o)</td>
+<td>在表头增加元素</td>
+</tr>
+<tr>
+<td>public void addLast(E o)</td>
+<td>在表尾增加元素</td>
+</tr>
+<tr>
+<td>public E removeFirst()</td>
+<td>删除链表的第一个元素</td>
+</tr>
+<tr>
+<td>public E removeLast()</td>
+<td>删除链表的最后一个元素</td>
+</tr>
+<tr>
+<td>E poll()</td>
+<td>取表头</td>
+</tr>
+</tbody>
+</table>
+<h3 id="二-Set接口"><a href="#二-Set接口" class="headerlink" title="二. Set接口"></a>二. Set接口</h3><p>set接口也是Collection接口的子接口，但是与Collection或List接口不同的是，Set接口中不能加入重复的元素。</p>
+<h4 id="Set接口常用子类"><a href="#Set接口常用子类" class="headerlink" title="Set接口常用子类"></a>Set接口常用子类</h4><ol>
+<li><strong>散列的存放：HashSet</strong><br>特点：不存放重复元素；采用散列存储的方式，故没有顺序</li>
+<li><strong>有序的存放：TreeSet</strong><br>对输入的数据进行有序排列（TreeSet实现了SortedSet接口）；若要自定义排序顺序，只需覆写compareTo()方法，自行指定排序规则。<blockquote>
+<p>SortedKey接口主要用于排序操作，即实现此接口的子类都属于排序的子类。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="三-集合的输出"><a href="#三-集合的输出" class="headerlink" title="三. 集合的输出"></a>三. 集合的输出</h3><h4 id="1-迭代输出-Iterator"><a href="#1-迭代输出-Iterator" class="headerlink" title="1.迭代输出:Iterator"></a>1.迭代输出:Iterator</h4><p>Iterator是专门的迭代输出接口，所谓的迭代输出就是将元素一个个进行判断，判断其是否有内容，若有则把内容取出。使用Iterator接口时需指定泛型。此接口定义了如下三个方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public boolean hasNext()</td>
+<td>判断是否有下一个值</td>
+</tr>
+<tr>
+<td>public E next()</td>
+<td>取出当前元素</td>
+</tr>
+<tr>
+<td>public void remove()</td>
+<td>移出当前元素</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">e.g</div><div class="line">List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">list.add(&quot;Hello&quot;);</div><div class="line">list.add(&quot; &quot;);</div><div class="line">list.add(&quot;World!&quot;);</div><div class="line">Iterator&lt;String&gt; it = list.iterator();</div><div class="line">while(it.hasNext())&#123;</div><div class="line">    System.out.print(it.next());</div></pre></td></tr></table></figure>
+<p>除了输出内容，还可用于删除当前的内容，直接使用remove()即可。</p>
+<h4 id="2-双向迭代输出-ListIterator"><a href="#2-双向迭代输出-ListIterator" class="headerlink" title="2.双向迭代输出:ListIterator"></a>2.双向迭代输出:ListIterator</h4><p>Iterator仅是由前向后单向输出，而此时如果想实现由后向前或是由前向后的双向输出，则必须使用Iterator的子接口——ListIterator。<br>若想从后向前遍历，则通过public boolean hasPrevious()判断是否有上一条件以及通过public E previous()取出当前元素。</p>
+<h4 id="3-foreach"><a href="#3-foreach" class="headerlink" title="3. foreach"></a>3. foreach</h4><p>foreach除了可以完成数组的输出，对于集合也同样支持.</p>
+<h3 id="四-Map接口"><a href="#四-Map接口" class="headerlink" title="四. Map接口"></a>四. Map接口</h3>
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/06/16/struts开发流程/" data-toggle="tooltip" data-placement="top"
-                           title="struts开发流程">&larr; Previous Post</a>
-                    </li>
                     
+                    <li class="next">
+                        <a href="/2017/06/29/我在等风书摘/" data-toggle="tooltip" data-placement="top"
+                           title="你在心上，便是天堂">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -215,7 +316,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-List接口"><span class="toc-text">一. List接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-List接口的定义"><span class="toc-text">1.List接口的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-List接口常用子类"><span class="toc-text">2.List接口常用子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-Set接口"><span class="toc-text">二. Set接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Set接口常用子类"><span class="toc-text">Set接口常用子类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-集合的输出"><span class="toc-text">三. 集合的输出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-迭代输出-Iterator"><span class="toc-text">1.迭代输出:Iterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-双向迭代输出-ListIterator"><span class="toc-text">2.双向迭代输出:ListIterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-foreach"><span class="toc-text">3. foreach</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-Map接口"><span class="toc-text">四. Map接口</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -236,6 +337,9 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
+                        
+                        <a class="tag" href="/tags/#java"
+                           title="java">java</a>
                         
                     </div>
                 </section>
