@@ -200,7 +200,17 @@
 <li><p>编写视图资源：处理类一般都返回一个ModelAndView对象，一般其都包含了返回的视图名，这个视图名就代表了需要显示的物理视图资源。</p>
 </li>
 </ol>
-<h4 id="SpringMVC执行的流程"><a href="#SpringMVC执行的流程" class="headerlink" title="SpringMVC执行的流程"></a>SpringMVC执行的流程</h4><p>有点复杂，以后再整理</p>
+<h4 id="SpringMVC执行的流程"><a href="#SpringMVC执行的流程" class="headerlink" title="SpringMVC执行的流程"></a>SpringMVC执行的流程</h4><p><img src="http://img.my.csdn.net/uploads/201304/13/1365825529_4693.png" alt="image"></p>
+<ol>
+<li>用户向服务器发送请求，请求被Spring的前端控制器DispatcherServlet借货</li>
+<li>DispatcherSerlvet对请求URL进行解析，得到URI（请求资源标识符）。然后根据URI调用HandlerMapping获得该Handler配置的所有相关的对象。</li>
+<li>DispatcherServlet根据获得的Handler，选择一个合适的HandlerAdapter。HandlerAdapter会被用于处理多钟Handler，调用Handler实际处理请求的方法。</li>
+<li>提取请求中的模型数据，开始执行Handler（Controller）。在填充Handler的入参过程中，根据配置，Spring将帮你做一些额外的处理，如消息转换、数据转换、数据格式化、数据验证。</li>
+<li>Handler执行完成后，向DispatcherServlert返回一个ModelAndView对象，其包含视图名或视图名和模型</li>
+<li>根据返回的ModelAndView对象，选择一个合适的ViewResolver（视图解析器）返回给DispatcherServlet</li>
+<li>ViewResolver结合Model和View来渲染视图。</li>
+<li>将视图渲染结果返回给客户端</li>
+</ol>
 
                 <hr>
                 
