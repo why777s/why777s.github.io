@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="wzj在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="why777s" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Java异常处理笔记｜why777s&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://why777s.github.io/2018/01/19/exception/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    why777s
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://orocn2hbr.bkt.clouddn.com/minniom.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/minniom.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Java异常处理笔记</h1>
+                    
+                    <span class="meta">
+                         作者 why777s
+                        <span>
+                          日期 2018-01-19
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Java异常处理笔记
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="一-Java异常处理机制"><a href="#一-Java异常处理机制" class="headerlink" title="一.  Java异常处理机制"></a>一.  Java异常处理机制</h3><h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><ol>
+<li><strong>抛出(throw)异常</strong>：<br>如果执行 try 块里的业务逻辑代码时出现异常，系统会自动生成一个异常对象，该异常对象被提交给Java运行时环境，这个过程被称为抛出(throw)异常 </li>
+<li><strong>捕获(catch)异常</strong>：<br>当Java运行时环境受到异常对象时，会寻找能处理该异常对象的catch块，如果找到合适的catch块，则把该异常对象交给该catch块处理，这个过程被称为捕获(catch)异常；如果找不到捕获异常的catch块，则运行时环境终止，Java程序退出。</li>
+</ol>
+<h4 id="异常类之间的继承关系"><a href="#异常类之间的继承关系" class="headerlink" title="异常类之间的继承关系"></a>异常类之间的继承关系</h4><ol>
+<li>Java把所有的非正常情况分成两种：异常(Exception)和错误(Error)，它们都继承Throwable父类</li>
+<li>Error错误一般指与虚拟机相关的问题，不可能捕获也不要试图去捕获。<blockquote>
+<p>常见的RuntimeException  </p>
+<ul>
+<li>IndexOutOfBoundsException 数组越界异常</li>
+<li>NumberFormatException 数字格式异常</li>
+<li>ArithmeticException  算术异常</li>
+<li>ClassCastException 类转换异常</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1516349006623&amp;di=392c16eb584b287c7212a4dda3c39b57&amp;imgtype=0&amp;src=http%3A%2F%2Fimg2.shangxueba.com%2Fimg%2Fkaifa%2F20140904%2F11%2FF68BEE784CD7112EC827E2A55D642AB9.png" alt="image"></p>
+<h4 id="多异常捕获"><a href="#多异常捕获" class="headerlink" title="多异常捕获"></a>多异常捕获</h4><ol>
+<li>从Java7开始，一个catch块可以捕获多种类型的异常。</li>
+<li>使用一个catch块捕获多种类型的异常需要注意如下两个地方：<ul>
+<li>捕获多种类型的异常时，多种异常类型之间用竖线(|)隔开</li>
+<li>捕获多种类型的异常时，异常变量有隐式的final修饰，因此程序不能对异常变量重新赋值</li>
+</ul>
+</li>
+</ol>
+<h4 id="访问异常信息"><a href="#访问异常信息" class="headerlink" title="访问异常信息"></a>访问异常信息</h4><ol>
+<li>所有的异常对象包括如下几个方法：<ul>
+<li>getMessage()：返回该异常的详细描述字符串</li>
+<li>printStackTrace()：将该异常的跟踪栈信息输出到标准错误输出</li>
+<li>printStactTrace(PrintStream s)：将该异常的跟踪栈信息输出到指定输出流</li>
+<li>getStactTrace：返回该异常的跟踪栈信息</li>
+</ul>
+</li>
+</ol>
+<h4 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h4><ol>
+<li>多个catch块必须位于try块之后，finally块必须位于所有的catch块之后。</li>
+<li>除非在try块，catch块调用了退出虚拟机的方法（ System.exit(1) 语句），否则不管在try块，catch块中执行怎样的代码，出现怎样的情况，异常处理的finally块总会被执行。</li>
+</ol>
+<h5 id="完整的Java异常处理语法结构"><a href="#完整的Java异常处理语法结构" class="headerlink" title="完整的Java异常处理语法结构"></a>完整的Java异常处理语法结构</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">try&#123;</div><div class="line">    //业务实现代码</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line">catch (SubException1 e)&#123;</div><div class="line">    //异常处理块1</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line">catch (SubException2 e)&#123;</div><div class="line">    //异常处理块1</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line">。。。</div><div class="line">finally&#123;</div><div class="line">    //一般是资源回收块</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="二-Checked异常和Runtime异常体系"><a href="#二-Checked异常和Runtime异常体系" class="headerlink" title="二. Checked异常和Runtime异常体系"></a>二. Checked异常和Runtime异常体系</h3><ol>
+<li>Java的异常分为Checked异常和Runtime异常。所有的RuntimeException类及其子类的实例被称为Runtime异常；不是RuntimeException类及其子类的异常实例被称为Checked异常</li>
+<li>Java认为<strong>Checked异常都是可以被处理（修复）的异常，所以Java程序必须显示处理Checked异常</strong>。如果程序没有处理Checked异常，该程序在编译时就会发生错误，无法通关编译。</li>
+<li>对于Checkec异常有如下两种处理方式<ul>
+<li>当前方法明确知道如何处理，则用try..catch</li>
+<li>不知道，则应在定义该方法时声明抛出该异常</li>
+</ul>
+</li>
+</ol>
+<h5 id="Q：哪些是Checked异常"><a href="#Q：哪些是Checked异常" class="headerlink" title="Q：哪些是Checked异常"></a>Q：哪些是Checked异常</h5><p><img src="http://uploadfiles.nowcoder.net/images/20151010/214250_1444467985224_6A144C1382BBEF1BE30E9B91BC2973C8" alt="image"></p>
+<blockquote>
+<p>答：如图，淡红色的是Checked异常，其必须被 try{}catch语句块所捕获,或者在方法签名里通过throws子句声明；淡蓝色的异常是运行时异常(runtime exceptions),需要程序员自己分析代码决定是否捕获和处理,比如 空指针,被0除…</p>
+</blockquote>
+<h4 id="使用throws声明抛出异常"><a href="#使用throws声明抛出异常" class="headerlink" title="使用throws声明抛出异常"></a>使用throws声明抛出异常</h4><ol>
+<li>使用throws声明抛出异常的思路是，当前方法不知道如何处理这种类型的异常，该异常应该由上一级调用者处理；如果main方法也不知道如何处理这种类型的异常，也可以使用throws声明抛出异常，该异常交给JVM处理。JVM会打印异常的跟踪栈信息，并中止程序运行。</li>
+<li><strong>throws声明抛出只能在方法签名中使用</strong>，格式如下<blockquote>
+<p>throws ExceptionClass1 , ExceptionClass2<br>e.g public void test() throws Exception</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="使用throw抛出异常"><a href="#使用throw抛出异常" class="headerlink" title="使用throw抛出异常"></a>使用throw抛出异常</h4><p>如果需要在程序中自行抛出异常，则应使用 throw 语句， throw语句可以单独使用， throw语句抛出的不是异常类，而是一个<strong>异常实例</strong>，而且每次只能抛出一个异常实例。</p>
+<blockquote>
+<p>throw ExceptionInstance;</p>
+</blockquote>
+<h5 id="Q：throw和throws比较"><a href="#Q：throw和throws比较" class="headerlink" title="Q：throw和throws比较"></a>Q：throw和throws比较</h5><blockquote>
+<p>答：<br>1、throws出现在方法函数头；而throw出现在函数体。<br>  2、throws表示出现异常的一种可能性，并不一定会发生这些异常；throw则是抛出了异常，执行throw则一定抛出了某种异常对象。<br>3、两者都是消极处理异常的方式（这里的消极并不是说这种方式不好），只是抛出或者可能抛出异常，但是不会由函数去处理异常，真正的处理异常由函数的上层调用处理。</p>
+</blockquote>
+<h3 id="三-异常处理规则"><a href="#三-异常处理规则" class="headerlink" title="三. 异常处理规则"></a>三. 异常处理规则</h3><ol>
+<li>成功的异常处理应该实现如下4个目标：<ul>
+<li>使程序代码混乱最小化</li>
+<li>捕获并保留诊断信息</li>
+<li>通知合适的人员</li>
+<li>采用合适的方法结束异常活动</li>
+</ul>
+</li>
+</ol>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/01/12/《Python网络数据采集》学习笔记1/" data-toggle="tooltip" data-placement="top"
+                           title="《Python网络数据采集》学习笔记1">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-Java异常处理机制"><span class="toc-text">一.  Java异常处理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本流程"><span class="toc-text">基本流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常类之间的继承关系"><span class="toc-text">异常类之间的继承关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多异常捕获"><span class="toc-text">多异常捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问异常信息"><span class="toc-text">访问异常信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#finally"><span class="toc-text">finally</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#完整的Java异常处理语法结构"><span class="toc-text">完整的Java异常处理语法结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-Checked异常和Runtime异常体系"><span class="toc-text">二. Checked异常和Runtime异常体系</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Q：哪些是Checked异常"><span class="toc-text">Q：哪些是Checked异常</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用throws声明抛出异常"><span class="toc-text">使用throws声明抛出异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用throw抛出异常"><span class="toc-text">使用throw抛出异常</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Q：throw和throws比较"><span class="toc-text">Q：throw和throws比较</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-异常处理规则"><span class="toc-text">三. 异常处理规则</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/why777s">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; why777s 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://why777s.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://orocn2hbr.bkt.clouddn.com/head.png">
+</body>
+
+</html>
