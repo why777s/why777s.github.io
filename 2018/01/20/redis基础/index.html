@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Hello World｜why777s&#39;s blog
+        redis基础｜why777s&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://why777s.github.io/2017/06/16/hello-world/">
+    <link rel="canonical" href="http://why777s.github.io/2018/01/20/redis基础/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -136,13 +136,13 @@
 
 
 <img class="wechat-title-img"
-     src="bike.jpg">
+     src="http://orocn2hbr.bkt.clouddn.com/view.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('bike.jpg')
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/view.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
     }
 
     
@@ -153,15 +153,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>Hello World</h1>
+                    <h1>redis基础</h1>
                     
                     <span class="meta">
                          作者 why777s
                         <span>
-                          日期 2017-06-16
+                          日期 2018-01-20
                          </span>
                     </span>
                     <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#redis"
+                           title="redis">redis</a>
                         
                     </div>
                 </div>
@@ -170,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            Hello World
+            redis基础
         </span>
     </div>
 </header>
@@ -181,26 +184,58 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+                <h3 id="一-Redis安装"><a href="#一-Redis安装" class="headerlink" title="一. Redis安装"></a>一. Redis安装</h3><p>Mac  </p>
+<ol>
+<li>安装Homebrew（使用Homebrew安装redis最方便）<br>将以下命令粘贴至终端<blockquote>
+<p>/usr/bin/ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install" target="_blank" rel="external">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)”</p>
+</blockquote>
+</li>
+<li>安装redis<blockquote>
+<p>brew install redis</p>
+</blockquote>
+</li>
+<li>使用redis服务<blockquote>
+<p>redis-server /usr/local/etc/redis.conf</p>
+</blockquote>
+</li>
+<li>启动redis<blockquote>
+<p>redis-cli</p>
+</blockquote>
+</li>
+<li>检测redis服务是否启动<blockquote>
+<p>127.0.0.1:6379&gt; ping<br>PONG</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="二-基本命令"><a href="#二-基本命令" class="headerlink" title="二. 基本命令"></a>二. 基本命令</h3><p>Redis支持五种数据类型：  </p>
+<ul>
+<li>string</li>
+<li>hash：一个键值对的集合</li>
+<li>list</li>
+<li>set</li>
+<li>zset(sortedset)  </li>
+</ul>
+<p>（详情参考 ① <a href="http://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="external">http://www.runoob.com/redis/redis-tutorial.html</a>  ②<a href="https://redis.io/commands）" target="_blank" rel="external">https://redis.io/commands）</a></p>
+<h4 id="1-key命令"><a href="#1-key命令" class="headerlink" title="1. key命令"></a>1. key命令</h4><p>key命令用于管理redis的键</p>
+<blockquote>
+<p>基本语法：127.0.0.1:6379&gt; COMMAND KEY<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; set myKey hello   </div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; exists myKey</div><div class="line">(integer) 1</div><div class="line">127.0.0.1:6379&gt; get myKey</div><div class="line">&quot;hello&quot;</div><div class="line">127.0.0.1:6379&gt; del myKey</div><div class="line">(integer) 1</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="2-Hash命令"><a href="#2-Hash命令" class="headerlink" title="2. Hash命令"></a>2. Hash命令</h4><p>Redis Hash 是一个String类型的field和value的映射表，适合存储对象。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; HMSET myHash field1 &quot;hello&quot; field2 &quot;world&quot;</div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; HGET myHash field1</div><div class="line">&quot;hello&quot;</div><div class="line">127.0.0.1:6379&gt; HGET myHash field2</div><div class="line">&quot;world&quot;</div><div class="line">127.0.0.1:6379&gt; HGETALL myHash</div><div class="line">1) &quot;field1&quot;</div><div class="line">2) &quot;hello&quot;</div><div class="line">3) &quot;field2&quot;</div><div class="line">4) &quot;world&quot;</div><div class="line">127.0.0.1:6379&gt;</div></pre></td></tr></table></figure>
+<h4 id="3-List命令"><a href="#3-List命令" class="headerlink" title="3. List命令"></a>3. List命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; LPUSH myList dog</div><div class="line">(integer) 1</div><div class="line">127.0.0.1:6379&gt; LPUSH myList cat</div><div class="line">(integer) 2</div><div class="line">127.0.0.1:6379&gt; LPUSH myList tiger lion </div><div class="line">(integer) 4</div><div class="line">127.0.0.1:6379&gt; LRANGE myList</div><div class="line">(error) ERR wrong number of arguments for &apos;lrange&apos; command</div><div class="line">127.0.0.1:6379&gt; LRANGE myList 0 3</div><div class="line">1) &quot;lion&quot;</div><div class="line">2) &quot;tiger&quot;</div><div class="line">3) &quot;cat&quot;</div><div class="line">4) &quot;dog&quot;</div><div class="line">127.0.0.1:6379&gt; LPOP myList</div><div class="line">&quot;lion&quot;</div><div class="line">127.0.0.1:6379&gt; LLEN myList</div><div class="line">(integer) 3</div><div class="line">127.0.0.1:6379&gt; LRANGE myList 0 2</div><div class="line">1) &quot;tiger&quot;</div><div class="line">2) &quot;cat&quot;</div><div class="line">3) &quot;dog&quot;</div><div class="line">127.0.0.1:6379&gt;</div></pre></td></tr></table></figure>
+<h4 id="3-Set命令"><a href="#3-Set命令" class="headerlink" title="3. Set命令"></a>3. Set命令</h4><p>Redis的Set是String类型的无序集合。集合中不能出现重复的元素。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; SADD mySet a</div><div class="line">(integer) 1</div><div class="line">127.0.0.1:6379&gt; SADD mySet b c d e</div><div class="line">(integer) 4</div><div class="line">127.0.0.1:6379&gt; SMEMBERS mySet</div><div class="line">1) &quot;d&quot;</div><div class="line">2) &quot;a&quot;</div><div class="line">3) &quot;c&quot;</div><div class="line">4) &quot;b&quot;</div><div class="line">5) &quot;e&quot;</div><div class="line">127.0.0.1:6379&gt; SADD mySet a</div><div class="line">(integer) 0</div><div class="line">127.0.0.1:6379&gt; SCARD mySet</div><div class="line">(integer) 5</div></pre></td></tr></table></figure></p>
+<h4 id="4-SortedSet命令"><a href="#4-SortedSet命令" class="headerlink" title="4. SortedSet命令"></a>4. SortedSet命令</h4><p>每个元素关联一个double类型的分数，redis通过这个分数为集合中的成员进行从小到大的排序。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; ZADD mySortedSet 1 ss1 2 ss2 3 ss3</div><div class="line">(integer) 3</div><div class="line">127.0.0.1:6379&gt; ZRANGE mySortedSet 0 2 WITHSCORES</div><div class="line">1) &quot;ss1&quot;</div><div class="line">2) &quot;1&quot;</div><div class="line">3) &quot;ss2&quot;</div><div class="line">4) &quot;2&quot;</div><div class="line">5) &quot;ss3&quot;</div><div class="line">6) &quot;3&quot;</div><div class="line">127.0.0.1:6379&gt;</div></pre></td></tr></table></figure></p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/06/16/struts开发流程/" data-toggle="tooltip" data-placement="top"
-                           title="struts开发流程">&larr; Previous Post</a>
-                    </li>
                     
+                    <li class="next">
+                        <a href="/2018/01/19/exception/" data-toggle="tooltip" data-placement="top"
+                           title="Java异常处理笔记">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -215,7 +250,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-Redis安装"><span class="toc-text">一. Redis安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-基本命令"><span class="toc-text">二. 基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-key命令"><span class="toc-text">1. key命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Hash命令"><span class="toc-text">2. Hash命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-List命令"><span class="toc-text">3. List命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Set命令"><span class="toc-text">3. Set命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-SortedSet命令"><span class="toc-text">4. SortedSet命令</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -236,6 +271,9 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
+                        
+                        <a class="tag" href="/tags/#redis"
+                           title="redis">redis</a>
                         
                     </div>
                 </section>
