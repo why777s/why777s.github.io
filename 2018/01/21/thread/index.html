@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="wzj在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="why777s" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Java多线程笔记｜why777s&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://why777s.github.io/2018/01/21/thread/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    why777s
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://orocn2hbr.bkt.clouddn.com/man.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/man.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Java多线程笔记</h1>
+                    
+                    <span class="meta">
+                         作者 why777s
+                        <span>
+                          日期 2018-01-21
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Java多线程笔记
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="一-进程与线程"><a href="#一-进程与线程" class="headerlink" title="一. 进程与线程"></a>一. 进程与线程</h3><ol>
+<li>所有运行中的任务通常对应一个进程（Process）。当一个程序进入内存运行时，即变成一个进程。进程是处于运行过程中的程序，并且具有一定的独立功能，进程是系统进行资源分配和调度的一个独立单位。</li>
+<li>线程是进程的组成部分，线程是比进程更小的执行单位，线程是在进程的基础之上的进一步划分。一个进程可以拥有多个线程，一个线程必须有一个父进程。</li>
+</ol>
+<h3 id="二-线程的创建和启动"><a href="#二-线程的创建和启动" class="headerlink" title="二. 线程的创建和启动"></a>二. 线程的创建和启动</h3><p>Java使用Thread类代表线程，所有的线程对象都必须是Thread类或其子类的实例。</p>
+<h4 id="1-继承Thread类创建线程类"><a href="#1-继承Thread类创建线程类" class="headerlink" title="1. 继承Thread类创建线程类"></a>1. 继承Thread类创建线程类</h4><p>步骤：</p>
+<ol>
+<li>定义Thread类的子类，覆写线程执行体 run()方法</li>
+<li>创建Thread类子类的实例，即创建了线程对象</li>
+<li>调用线程对象的 start() 方法来启动该线程</li>
+</ol>
+<blockquote>
+<p>莫忘Java程序运行时默认的主线程，main()方法的方法体就是主线程的线程执行体</p>
+</blockquote>
+<h4 id="2-实现Runnable接口创建线程类"><a href="#2-实现Runnable接口创建线程类" class="headerlink" title="2.实现Runnable接口创建线程类"></a>2.实现Runnable接口创建线程类</h4><p>步骤：</p>
+<ol>
+<li>定义Runnable接口的实现类，覆写该接口线程执行体的run()方法</li>
+<li><p>创建Runnable实现类的实例，以此实例创建Thread对象</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 创建Runnable实现类的对象</div><div class="line">SecondThread st = new SecondThread();</div><div class="line">new Thread(st , &quot;线程1&quot;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>调用线程对象的 start() 方法来启动该线程</p>
+<blockquote>
+<p>采用Runnable接口的方式创建的多个线程可以共享线程类的实例变量</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="三-线程的生命周期"><a href="#三-线程的生命周期" class="headerlink" title="三. 线程的生命周期"></a>三. 线程的生命周期</h3><p>一张图简洁明了，舒服。 </p>
+<p><img src="http://orocn2hbr.bkt.clouddn.com/thread.png" alt="image"></p>
+<h3 id="四-线程的控制"><a href="#四-线程的控制" class="headerlink" title="四.线程的控制"></a>四.线程的控制</h3><h4 id="1-join线程"><a href="#1-join线程" class="headerlink" title="1. join线程"></a>1. join线程</h4><ol>
+<li>当在某个程序执行流中调用其他线程的join()方法时，调用线程将被阻塞，直到被join()方法加入的join线程执行完为止</li>
+<li>join()方法的重载方式  <ul>
+<li>join()：等待被join的线程执行完成</li>
+<li>join(long millis)：等待被join的线程的时间最长为millis毫秒，如果超出时间还没执行完，则不再等待</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-后台线程（Daemon-Thread）"><a href="#2-后台线程（Daemon-Thread）" class="headerlink" title="2. 后台线程（Daemon Thread）"></a>2. 后台线程（Daemon Thread）</h4><ol>
+<li>有一种线程是在后台运行的，其任务是为其他的线程提供服务。如果所有的前台线程都死亡，后台线程会自动死亡。</li>
+<li>调用Thread对象的 setDaemon(true) 方法可将制定线程设置成后台线程<blockquote>
+<p>要将某个线程设置为后台进程，必须在该线程启动之前设置</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="3-线程睡眠sleep"><a href="#3-线程睡眠sleep" class="headerlink" title="3. 线程睡眠sleep()"></a>3. 线程睡眠sleep()</h4><p>如果需要让当前正在执行的线程暂停一段时间，并进入阻塞状态，可以通过Thread类的静态sleep()方法实现。sleep()方法通常用来暂停程序的执行。</p>
+<blockquote>
+<p>Thread.sleep(long millis)</p>
+</blockquote>
+<h4 id="4-线程让步yield"><a href="#4-线程让步yield" class="headerlink" title="4. 线程让步yield()"></a>4. 线程让步yield()</h4><ol>
+<li>Thread类提供的一个静态方法，让当前线程暂停，但不会阻塞该线程，只是将其转入就绪状态。之后可能重新执行。</li>
+<li>当某个线程调用yield()方法暂停后，只有优先级与当前线程相同，或者优先级更高的处于就绪状态的线程才会获得执行的机会。</li>
+</ol>
+<h5 id="sleep-与-yield-的区别"><a href="#sleep-与-yield-的区别" class="headerlink" title="sleep() 与 yield()的区别"></a>sleep() 与 yield()的区别</h5><p><img src="http://orocn2hbr.bkt.clouddn.com/yield.png" alt="image"></p>
+<h4 id="5-改变线程优先级"><a href="#5-改变线程优先级" class="headerlink" title="5. 改变线程优先级"></a>5. 改变线程优先级</h4><ol>
+<li>通过 setPriority(int newPriority)，getPriority()方法来设置和返回指定线程的优先级，setPriority()方法的参数可以是一个整数，其值在1-10之间，也可以用如下Thread的三个静态常量（推荐使用）<ul>
+<li>MAX_PRIORITY ： 值为10</li>
+<li>MIN_PRIORITY ： 值为1</li>
+<li>NORM_PRIORITY ： 值为5</li>
+</ul>
+</li>
+</ol>
+<h3 id="五-线程同步"><a href="#五-线程同步" class="headerlink" title="五. 线程同步"></a>五. 线程同步</h3><h4 id="1-同步代码块"><a href="#1-同步代码块" class="headerlink" title="1. 同步代码块"></a>1. 同步代码块</h4><p>Java多线程支持引入了同步监视器，使用同步监视器的通用方法就是同步代码块。任何时刻只能有一个线程可以获得对同步监视器的锁定，当同步代码块执行完成后，该线程会释放对该同步监视器的锁定。通常推荐使用可能被并发访问的共享资源作为同步监视器。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">synchronized(obj)&#123;   // obj就是同步监视器</div><div class="line">    ...</div><div class="line">    // 同步代码块</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="2-同步方法"><a href="#2-同步方法" class="headerlink" title="2. 同步方法"></a>2. 同步方法</h4><ol>
+<li>使用synchronized关键字修饰某个方法，则该方法称为同步方法。对于synchronized修饰的实例方法而言，无需显示指定同步监视器，<strong>同步方法的同步监视器是this，也就是调用该方法的对象</strong>。</li>
+<li>通过使用同步方法可以方便地实现线程安全的类，线程安全的类有如下特征：  <ul>
+<li>该类的对象可以被多个线程安全访问</li>
+<li>每个线程调用该对象的任意方法之后都将得到正确结果</li>
+<li>每个线程调用该对象的任意方法后，该对象依然保持合理状态<blockquote>
+<p>synchronized 关键字可以修饰方法，可以修饰代码块，但是不能修饰构造器，成员变量</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-同步锁"><a href="#3-同步锁" class="headerlink" title="3. 同步锁"></a>3. 同步锁</h4><ol>
+<li>Lock是控制多个线程对共享资源进行访问的工具。通常锁提供了对共享资源的独占访问，每次只能有一个线程对Lock对象加锁，线程开始访问共享资源之前应先获得Lock对象</li>
+<li>在实现线程安全的控制中，比较常用的是<strong>ReentrantLock（可重入锁）</strong>。使用该Lock对象可以显示地加锁，释放锁，通常使用ReentrantLock的代码格式如下：<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class X&#123;</div><div class="line">    // 定义锁对象</div><div class="line">    private final ReentrantLock lock = new ReentrantLock();</div><div class="line">    // ...</div><div class="line">    // 定义需要保证线程安全的方法</div><div class="line">    public void m()&#123;</div><div class="line">        // 加锁</div><div class="line">        lock.lock();</div><div class="line">        try&#123;</div><div class="line">            // 需要保证线程安全的代码</div><div class="line">            // ... method body</div><div class="line">        &#125;</div><div class="line">        // 使用finally块保证释放锁</div><div class="line">        finally&#123;</div><div class="line">            lock.unlock(); </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="4-死锁"><a href="#4-死锁" class="headerlink" title="4. 死锁"></a>4. 死锁</h4><p>当两个线程互相等待对方释放同步监视器时就会发生死锁，JVM没有检测，也没有采取措施来处理死锁情况，所以多线程编程时应该采取措施避免死锁出现，所以多线程编程时应该采取措施避免死锁出现。一旦出现死锁，整个程序既不会发生任何异常，也不会给出任何提示，只是所有线程处于阻塞状态，无法继续。</p>
+<h4 id="5-Object类对线程的支持"><a href="#5-Object类对线程的支持" class="headerlink" title="5. Object类对线程的支持"></a>5. Object类对线程的支持</h4><p>有如下三个方法可以实现线程的等待或者唤醒</p>
+<ul>
+<li><strong>wait()</strong>: 使当前线程等待，直到其他线程调用该同步监视器的notify()方法或者notifyAll()方法来唤醒该进程。</li>
+<li><strong>notify()</strong>: 唤醒在此同步监视器上等待的单个进程。</li>
+<li><strong>notifyAll()</strong>: 唤醒在此同步监视器上等待的所有进程。</li>
+</ul>
+<h3 id="六-线程池"><a href="#六-线程池" class="headerlink" title="六. 线程池"></a>六. 线程池</h3><ol>
+<li>Java5新增了一个Executors工厂类来产生线程池，该工厂类包含如下几个静态工厂方法来创建线程池：</li>
+</ol>
+<h6 id="稍后补充"><a href="#稍后补充" class="headerlink" title="稍后补充"></a>稍后补充</h6><h3 id="七-线程相关类"><a href="#七-线程相关类" class="headerlink" title="七. 线程相关类"></a>七. 线程相关类</h3><h4 id="1-包装线程不安全的集合"><a href="#1-包装线程不安全的集合" class="headerlink" title="1. 包装线程不安全的集合"></a>1. 包装线程不安全的集合</h4><blockquote>
+<p>ArrayList、LinkedList、HashSet、TreeSet、HsahMap、TreeMap等都是线程不安全的  </p>
+</blockquote>
+<p>如果程序中有多个线程可能访问上面这些集合，就可以使用Collections提供的类方法把这些集合包装成线程安全的集合。Collections提供了如下几个静态方法：</p>
+<table>
+<thead>
+<tr>
+<th>header 1</th>
+<th>header 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><t> Collection<t> synchronizedCollection(Collection<t> c)</t></t></t></td>
+<td>返回制定collection对应的线程安全的collection</td>
+</tr>
+<tr>
+<td>static <t> List<t> synchronizedList(List<t> list)</t></t></t></td>
+<td>返回指定List对象对应的线程安全的List对象</td>
+</tr>
+<tr>
+<td>static <t> Set<t> synchronizedSet(Set<t> set)</t></t></t></td>
+<td>Set</td>
+</tr>
+<tr>
+<td>static <k,v> Map<k,v> synchronizedMap(Map<k,v> map)</k,v></k,v></k,v></td>
+<td>Map</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">e.g</div><div class="line">HashMap map = Collections.synchronizedMap(new HashMap());</div></pre></td></tr></table></figure>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/01/20/redis基础/" data-toggle="tooltip" data-placement="top"
+                           title="redis基础">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-进程与线程"><span class="toc-text">一. 进程与线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-线程的创建和启动"><span class="toc-text">二. 线程的创建和启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-继承Thread类创建线程类"><span class="toc-text">1. 继承Thread类创建线程类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-实现Runnable接口创建线程类"><span class="toc-text">2.实现Runnable接口创建线程类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-线程的生命周期"><span class="toc-text">三. 线程的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-线程的控制"><span class="toc-text">四.线程的控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-join线程"><span class="toc-text">1. join线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-后台线程（Daemon-Thread）"><span class="toc-text">2. 后台线程（Daemon Thread）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-线程睡眠sleep"><span class="toc-text">3. 线程睡眠sleep()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-线程让步yield"><span class="toc-text">4. 线程让步yield()</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#sleep-与-yield-的区别"><span class="toc-text">sleep() 与 yield()的区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-改变线程优先级"><span class="toc-text">5. 改变线程优先级</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-线程同步"><span class="toc-text">五. 线程同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-同步代码块"><span class="toc-text">1. 同步代码块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-同步方法"><span class="toc-text">2. 同步方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-同步锁"><span class="toc-text">3. 同步锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-死锁"><span class="toc-text">4. 死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-Object类对线程的支持"><span class="toc-text">5. Object类对线程的支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六-线程池"><span class="toc-text">六. 线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#稍后补充"><span class="toc-text">稍后补充</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七-线程相关类"><span class="toc-text">七. 线程相关类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-包装线程不安全的集合"><span class="toc-text">1. 包装线程不安全的集合</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/why777s">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; why777s 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://why777s.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://orocn2hbr.bkt.clouddn.com/head.png">
+</body>
+
+</html>
