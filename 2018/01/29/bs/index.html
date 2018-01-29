@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="wzj在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="why777s" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        BeautifulSoup学习笔记｜why777s&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://why777s.github.io/2018/01/29/bs/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    why777s
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://orocn2hbr.bkt.clouddn.com/man.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://orocn2hbr.bkt.clouddn.com/man.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>BeautifulSoup学习笔记</h1>
+                    
+                    <span class="meta">
+                         作者 why777s
+                        <span>
+                          日期 2018-01-29
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                        <a class="tag" href="/tags/#爬虫"
+                           title="爬虫">爬虫</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            BeautifulSoup学习笔记
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="一-安装"><a href="#一-安装" class="headerlink" title="一.安装"></a>一.安装</h3><blockquote>
+<p>pip3 install beautifulsoup4</p>
+</blockquote>
+<h3 id="二-用法"><a href="#二-用法" class="headerlink" title="二.用法"></a>二.用法</h3><p>示例1<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">html = &quot;&quot;&quot;</div><div class="line">&lt;html&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">        &lt;title&gt;我的第一个 HTML 页面&lt;/title&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">        &lt;p class=&quot;pclass&quot; name=&quot;pname&quot;&gt;肚子好饿 &lt;/p&gt;</div><div class="line">        &lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;</div><div class="line">        &lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;</div><div class="line">        &lt;a href=&quot;http://www.baidu.com&quot;&gt;&lt;p&gt; Hello BD!&lt;/p&gt;&lt;/a&gt;</div><div class="line"></div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">&quot;&quot;&quot;</div></pre></td></tr></table></figure></p>
+<h4 id="1-标签选择器"><a href="#1-标签选择器" class="headerlink" title="1. 标签选择器"></a>1. 标签选择器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.title)</div><div class="line">print(type(soup.title))</div><div class="line"># 若有多个，只返回第一个</div><div class="line">print(soup.p)</div><div class="line"># 获取文本内容 </div><div class="line">print(soup.p.get_text())</div><div class="line">print(soup.p.string)</div></pre></td></tr></table></figure>
+<p>运行结果:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;title&gt;我的第一个 HTML 页面&lt;/title&gt;</div><div class="line">&lt;class &apos;bs4.element.Tag&apos;&gt;</div><div class="line">&lt;p class=&quot;pclass&quot; name=&quot;pname&quot;&gt;肚子好饿 &lt;/p&gt;</div><div class="line">肚子好饿</div><div class="line">肚子好饿</div></pre></td></tr></table></figure></p>
+<h4 id="2-获取属性"><a href="#2-获取属性" class="headerlink" title="2. 获取属性"></a>2. 获取属性</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.p[&apos;name&apos;])</div><div class="line">print(soup.p.attrs[&apos;name&apos;])</div></pre></td></tr></table></figure>
+<p>运行结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">pname</div><div class="line">pname</div></pre></td></tr></table></figure></p>
+<h4 id="3-嵌套选择"><a href="#3-嵌套选择" class="headerlink" title="3. 嵌套选择"></a>3. 嵌套选择</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.head.title.string)</div><div class="line">print(soup.body.p.string)</div></pre></td></tr></table></figure>
+<p>运行结果:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">我的第一个 HTML 页面</div><div class="line">肚子好饿</div></pre></td></tr></table></figure></p>
+<h4 id="子节点和子孙节点"><a href="#子节点和子孙节点" class="headerlink" title="子节点和子孙节点"></a>子节点和子孙节点</h4><blockquote>
+<p>获取子节点<br>soup.xxx.contents  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># 获取子节点的所有元素 注意不要少了s</div><div class="line">print(soup.a.contents)</div><div class="line">print(soup.body.contents)</div></pre></td></tr></table></figure>
+<p>运行结果:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[&lt;p&gt; Hello BD!&lt;/p&gt;]</div><div class="line">[&apos;\n&apos;, &lt;p class=&quot;pclass&quot; name=&quot;pname&quot;&gt;肚子好饿 &lt;/p&gt;, &apos;\n&apos;, &lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;, &apos;\n&apos;, &lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;, &apos;\n&apos;, &lt;a href=&quot;http://www.baidu.com&quot;&gt;&lt;p&gt; Hello BD!&lt;/p&gt;&lt;/a&gt;, &apos;\n&apos;]</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>获取子孙节点<br>soup.xxx.descendants  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.body.descendants)</div><div class="line">for i,child in enumerate(soup.body.descendants):</div><div class="line">    print(i,child)</div></pre></td></tr></table></figure>
+<p>运行结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;generator object descendants at 0x106517d58&gt;</div><div class="line">0 </div><div class="line"></div><div class="line">1 &lt;p class=&quot;pclass&quot; name=&quot;pname&quot;&gt;肚子好饿 &lt;/p&gt;</div><div class="line">2 肚子好饿 </div><div class="line">3 </div><div class="line"></div><div class="line">4 &lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;</div><div class="line">5 body 元素的内容会显示在浏览器中。</div><div class="line">6 </div><div class="line"></div><div class="line">7 &lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;</div><div class="line">8 title 元素的内容会显示在浏览器的标题栏中。</div><div class="line">9 </div><div class="line"></div><div class="line">10 &lt;a href=&quot;http://www.baidu.com&quot;&gt;&lt;p&gt; Hello BD!&lt;/p&gt;&lt;/a&gt;</div><div class="line">11 &lt;p&gt; Hello BD!&lt;/p&gt;</div><div class="line">12  Hello BD!</div><div class="line">13  </div><div class="line">```  </div><div class="line"></div><div class="line">  </div><div class="line">  </div><div class="line">  </div><div class="line">  </div><div class="line">#### 4. 父节点和祖先节点</div><div class="line">&gt; 获取父节点  </div><div class="line">soup.xxx.parent  </div><div class="line"></div><div class="line"></div><div class="line">&gt; 获取祖先节点  </div><div class="line">soup.xxx.parents   </div><div class="line"></div><div class="line">#### 兄弟节点</div><div class="line">&gt; soup.xxx.next_siblings   </div><div class="line">&gt; soup.xxx.previous_siblings    </div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">示例2</div></pre></td></tr></table></figure></p>
+<p>html2 = “””</p>
+<p><html><br>    <body><br>        <h4>一个无序列表：</h4><br>        <ul class="list1"><br>            <li>咖啡</li><br>            <li>茶</li><br>            <li>牛奶</li><br>        </ul><br>        <ul class="list2" id="l2"><br>            <li>可乐</li><br>            <li>雪碧</li><br>        </ul><br>    </body><br></html><br>“””</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#### 5. 标准选择器</div><div class="line">&gt; 返回所有元素：find_all(name, attrs, recursive, text, **kwargs)  </div><div class="line">&gt; 返回单个元素：find( name , attrs , recursive , text , **kwargs)</div><div class="line">  </div><div class="line">  </div><div class="line"></div><div class="line">##### name</div></pre></td></tr></table></figure>
+<p>print(soup.find_all(‘ul’))<br>print(soup.find_all(‘ul’)[0])</p>
+<p>for each in soup.find_all(‘ul’):<br>    print(each.find_all(‘li’))<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">运行结果:</div></pre></td></tr></table></figure></p>
+<p>[<ul class="list1"></ul></p>
+<p><li>咖啡</li></p>
+<p><li>茶</li></p>
+<p><li>牛奶</li><br>, <ul class="list2" id="l2"></ul></p>
+<p><li>可乐</li></p>
+<p><li>雪碧</li><br>]</p>
+<p><ul class="list1"></ul></p>
+<p><li>咖啡</li></p>
+<p><li>茶</li></p>
+<p><li>牛奶</li><br><br>[<li>咖啡</li>, <li>茶</li>, <li>牛奶</li>]<br>[<li>可乐</li>, <li>雪碧</li>]</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">##### attrs</div></pre></td></tr></table></figure>
+<p>print(soup.find_all(attrs={‘class’:’list1’}))<br>print(soup.find_all(attrs={‘id’:’l2’}))<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">运行结果：</div></pre></td></tr></table></figure></p>
+<p>[<ul class="list1"></ul></p>
+<p><li>咖啡</li></p>
+<p><li>茶</li></p>
+<p><li>牛奶</li><br>]<br>[<ul class="list2" id="l2"></ul></p>
+<p><li>可乐</li></p>
+<p><li>雪碧</li><br>]<br>```</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/01/21/thread/" data-toggle="tooltip" data-placement="top"
+                           title="Java多线程笔记">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-安装"><span class="toc-text">一.安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-用法"><span class="toc-text">二.用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-标签选择器"><span class="toc-text">1. 标签选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-获取属性"><span class="toc-text">2. 获取属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-嵌套选择"><span class="toc-text">3. 嵌套选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子节点和子孙节点"><span class="toc-text">子节点和子孙节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">一个无序列表：</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                        <a class="tag" href="/tags/#爬虫"
+                           title="爬虫">爬虫</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/why777s">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; why777s 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://why777s.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://orocn2hbr.bkt.clouddn.com/head.png">
+</body>
+
+</html>
