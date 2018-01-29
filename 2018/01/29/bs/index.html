@@ -206,30 +206,23 @@
 <p>获取子孙节点<br>soup.xxx.descendants  </p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.body.descendants)</div><div class="line">for i,child in enumerate(soup.body.descendants):</div><div class="line">    print(i,child)</div></pre></td></tr></table></figure>
-<p>运行结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;generator object descendants at 0x106517d58&gt;</div><div class="line">0 </div><div class="line"></div><div class="line">1 &lt;p class=&quot;pclass&quot; name=&quot;pname&quot;&gt;肚子好饿 &lt;/p&gt;</div><div class="line">2 肚子好饿 </div><div class="line">3 </div><div class="line"></div><div class="line">4 &lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;</div><div class="line">5 body 元素的内容会显示在浏览器中。</div><div class="line">6 </div><div class="line"></div><div class="line">7 &lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;</div><div class="line">8 title 元素的内容会显示在浏览器的标题栏中。</div><div class="line">9 </div><div class="line"></div><div class="line">10 &lt;a href=&quot;http://www.baidu.com&quot;&gt;&lt;p&gt; Hello BD!&lt;/p&gt;&lt;/a&gt;</div><div class="line">11 &lt;p&gt; Hello BD!&lt;/p&gt;</div><div class="line">12  Hello BD!</div><div class="line">13  </div><div class="line">```  </div><div class="line"></div><div class="line">  </div><div class="line">  </div><div class="line">  </div><div class="line">  </div><div class="line">#### 4. 父节点和祖先节点</div><div class="line">&gt; 获取父节点  </div><div class="line">soup.xxx.parent  </div><div class="line"></div><div class="line"></div><div class="line">&gt; 获取祖先节点  </div><div class="line">soup.xxx.parents   </div><div class="line"></div><div class="line">#### 兄弟节点</div><div class="line">&gt; soup.xxx.next_siblings   </div><div class="line">&gt; soup.xxx.previous_siblings    </div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">示例2</div></pre></td></tr></table></figure></p>
-<p>html2 = “””</p>
-<p><html><br>    <body><br>        <h4>一个无序列表：</h4><br>        <ul class="list1"><br>            <li>咖啡</li><br>            <li>茶</li><br>            <li>牛奶</li><br>        </ul><br>        <ul class="list2" id="l2"><br>            <li>可乐</li><br>            <li>雪碧</li><br>        </ul><br>    </body><br></html><br>“””</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#### 5. 标准选择器</div><div class="line">&gt; 返回所有元素：find_all(name, attrs, recursive, text, **kwargs)  </div><div class="line">&gt; 返回单个元素：find( name , attrs , recursive , text , **kwargs)</div><div class="line">  </div><div class="line">  </div><div class="line"></div><div class="line">##### name</div></pre></td></tr></table></figure>
-<p>print(soup.find_all(‘ul’))<br>print(soup.find_all(‘ul’)[0])</p>
-<p>for each in soup.find_all(‘ul’):<br>    print(each.find_all(‘li’))<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">运行结果:</div></pre></td></tr></table></figure></p>
-<p>[<ul class="list1"></ul></p>
-<p><li>咖啡</li></p>
-<p><li>茶</li></p>
-<p><li>牛奶</li><br>, <ul class="list2" id="l2"></ul></p>
-<p><li>可乐</li></p>
-<p><li>雪碧</li><br>]</p>
-<p><ul class="list1"></ul></p>
-<p><li>咖啡</li></p>
-<p><li>茶</li></p>
-<p><li>牛奶</li><br><br>[<li>咖啡</li>, <li>茶</li>, <li>牛奶</li>]<br>[<li>可乐</li>, <li>雪碧</li>]</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">##### attrs</div></pre></td></tr></table></figure>
-<p>print(soup.find_all(attrs={‘class’:’list1’}))<br>print(soup.find_all(attrs={‘id’:’l2’}))<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">运行结果：</div></pre></td></tr></table></figure></p>
-<p>[<ul class="list1"></ul></p>
-<p><li>咖啡</li></p>
-<p><li>茶</li></p>
-<p><li>牛奶</li><br>]<br>[<ul class="list2" id="l2"></ul></p>
-<p><li>可乐</li></p>
-<p><li>雪碧</li><br>]<br>```</p>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;generator object descendants at 0x106517d58&gt;</div><div class="line">0 </div><div class="line"></div><div class="line">1 &lt;p class=&quot;pclass&quot; name=&quot;pname&quot;&gt;肚子好饿 &lt;/p&gt;</div><div class="line">2 肚子好饿 </div><div class="line">3 </div><div class="line"></div><div class="line">4 &lt;p&gt;body 元素的内容会显示在浏览器中。&lt;/p&gt;</div><div class="line">5 body 元素的内容会显示在浏览器中。</div><div class="line">6 </div><div class="line"></div><div class="line">7 &lt;p&gt;title 元素的内容会显示在浏览器的标题栏中。&lt;/p&gt;</div><div class="line">8 title 元素的内容会显示在浏览器的标题栏中。</div><div class="line">9 </div><div class="line"></div><div class="line">10 &lt;a href=&quot;http://www.baidu.com&quot;&gt;&lt;p&gt; Hello BD!&lt;/p&gt;&lt;/a&gt;</div><div class="line">11 &lt;p&gt; Hello BD!&lt;/p&gt;</div><div class="line">12  Hello BD!</div><div class="line">13</div></pre></td></tr></table></figure>
+<h4 id="4-父节点和祖先节点"><a href="#4-父节点和祖先节点" class="headerlink" title="4. 父节点和祖先节点"></a>4. 父节点和祖先节点</h4><blockquote>
+<p>获取父节点<br>soup.xxx.parent  </p>
+<p>获取祖先节点<br>soup.xxx.parents   </p>
+</blockquote>
+<h4 id="兄弟节点"><a href="#兄弟节点" class="headerlink" title="兄弟节点"></a>兄弟节点</h4><blockquote>
+<p>soup.xxx.next_siblings<br>soup.xxx.previous_siblings    </p>
+</blockquote>
+<p>示例2<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">html2 = &quot;&quot;&quot;</div><div class="line">&lt;html&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">        &lt;h4&gt;一个无序列表：&lt;/h4&gt;</div><div class="line">        &lt;ul class=&quot;list1&quot;&gt;</div><div class="line">            &lt;li&gt;咖啡&lt;/li&gt;</div><div class="line">            &lt;li&gt;茶&lt;/li&gt;</div><div class="line">            &lt;li&gt;牛奶&lt;/li&gt;</div><div class="line">        &lt;/ul&gt;</div><div class="line">        &lt;ul class=&quot;list2&quot; id=&quot;l2&quot;&gt;</div><div class="line">            &lt;li&gt;可乐&lt;/li&gt;</div><div class="line">            &lt;li&gt;雪碧&lt;/li&gt;   </div><div class="line">        &lt;/ul&gt;</div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">&quot;&quot;&quot;</div></pre></td></tr></table></figure></p>
+<h4 id="5-标准选择器"><a href="#5-标准选择器" class="headerlink" title="5. 标准选择器"></a>5. 标准选择器</h4><blockquote>
+<p>返回所有元素：find_all(name, attrs, recursive, text, <strong>kwargs)<br>返回单个元素：find( name , attrs , recursive , text , </strong>kwargs)</p>
+</blockquote>
+<h5 id="name"><a href="#name" class="headerlink" title="name"></a>name</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.find_all(&apos;ul&apos;))</div><div class="line">print(soup.find_all(&apos;ul&apos;)[0])</div><div class="line"></div><div class="line">for each in soup.find_all(&apos;ul&apos;):</div><div class="line">    print(each.find_all(&apos;li&apos;))</div></pre></td></tr></table></figure>
+<p>运行结果:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[&lt;ul class=&quot;list1&quot;&gt;</div><div class="line">&lt;li&gt;咖啡&lt;/li&gt;</div><div class="line">&lt;li&gt;茶&lt;/li&gt;</div><div class="line">&lt;li&gt;牛奶&lt;/li&gt;</div><div class="line">&lt;/ul&gt;, &lt;ul class=&quot;list2&quot; id=&quot;l2&quot;&gt;</div><div class="line">&lt;li&gt;可乐&lt;/li&gt;</div><div class="line">&lt;li&gt;雪碧&lt;/li&gt;</div><div class="line">&lt;/ul&gt;]</div><div class="line">&lt;ul class=&quot;list1&quot;&gt;</div><div class="line">&lt;li&gt;咖啡&lt;/li&gt;</div><div class="line">&lt;li&gt;茶&lt;/li&gt;</div><div class="line">&lt;li&gt;牛奶&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">[&lt;li&gt;咖啡&lt;/li&gt;, &lt;li&gt;茶&lt;/li&gt;, &lt;li&gt;牛奶&lt;/li&gt;]</div><div class="line">[&lt;li&gt;可乐&lt;/li&gt;, &lt;li&gt;雪碧&lt;/li&gt;]</div></pre></td></tr></table></figure></p>
+<h5 id="attrs"><a href="#attrs" class="headerlink" title="attrs"></a>attrs</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">print(soup.find_all(attrs=&#123;&apos;class&apos;:&apos;list1&apos;&#125;))</div><div class="line">print(soup.find_all(attrs=&#123;&apos;id&apos;:&apos;l2&apos;&#125;))</div></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[&lt;ul class=&quot;list1&quot;&gt;</div><div class="line">&lt;li&gt;咖啡&lt;/li&gt;</div><div class="line">&lt;li&gt;茶&lt;/li&gt;</div><div class="line">&lt;li&gt;牛奶&lt;/li&gt;</div><div class="line">&lt;/ul&gt;]</div><div class="line">[&lt;ul class=&quot;list2&quot; id=&quot;l2&quot;&gt;</div><div class="line">&lt;li&gt;可乐&lt;/li&gt;</div><div class="line">&lt;li&gt;雪碧&lt;/li&gt;</div><div class="line">&lt;/ul&gt;]</div></pre></td></tr></table></figure></p>
 
                 <hr>
                 
@@ -255,7 +248,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-安装"><span class="toc-text">一.安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-用法"><span class="toc-text">二.用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-标签选择器"><span class="toc-text">1. 标签选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-获取属性"><span class="toc-text">2. 获取属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-嵌套选择"><span class="toc-text">3. 嵌套选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子节点和子孙节点"><span class="toc-text">子节点和子孙节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">一个无序列表：</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-安装"><span class="toc-text">一.安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-用法"><span class="toc-text">二.用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-标签选择器"><span class="toc-text">1. 标签选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-获取属性"><span class="toc-text">2. 获取属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-嵌套选择"><span class="toc-text">3. 嵌套选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子节点和子孙节点"><span class="toc-text">子节点和子孙节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-父节点和祖先节点"><span class="toc-text">4. 父节点和祖先节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#兄弟节点"><span class="toc-text">兄弟节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-标准选择器"><span class="toc-text">5. 标准选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#name"><span class="toc-text">name</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#attrs"><span class="toc-text">attrs</span></a></li></ol></li></ol></li></ol>
                 </div>
             </div>
         </div>
