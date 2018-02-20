@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        scrapy｜why777s&#39;s blog
+        scrapy笔记｜why777s&#39;s blog
         
     </title>
 
@@ -153,7 +153,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>scrapy</h1>
+                    <h1>scrapy笔记</h1>
                     
                     <span class="meta">
                          作者 why777s
@@ -176,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            scrapy
+            scrapy笔记
         </span>
     </div>
 </header>
@@ -187,82 +187,46 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h5 id="笔记内容整理自scrapy1-5官方文档"><a href="#笔记内容整理自scrapy1-5官方文档" class="headerlink" title="笔记内容整理自scrapy1.5官方文档"></a>笔记内容整理自scrapy1.5官方文档</h5><h6 id="Python3-5-scrapy1-5"><a href="#Python3-5-scrapy1-5" class="headerlink" title="Python3.5 scrapy1.5"></a>Python3.5 scrapy1.5</h6><h4 id="一-配置"><a href="#一-配置" class="headerlink" title="一. 配置"></a>一. 配置</h4><ol>
-<li>安装(macOS)<br>先安装c++库,再安装scrapy<blockquote>
-<p>xcode-select –install</p>
-</blockquote>
-</li>
-</ol>
+                <p>笔记内容整理自scrapy1.5官方文档<br>Python3.5 scrapy1.5</p>
+<h4 id="一-配置"><a href="#一-配置" class="headerlink" title="一. 配置"></a>一. 配置</h4><h5 id="1-安装-macOS"><a href="#1-安装-macOS" class="headerlink" title="1. 安装(macOS)"></a>1. 安装(macOS)</h5><p>先安装c++库,再安装scrapy</p>
 <blockquote>
-<p>pip3 install scrapy  </p>
+<p>xcode-select –install<br> pip3 install scrapy  </p>
 </blockquote>
-<ol>
-<li>创建一个项目  <blockquote>
+<h5 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h5><blockquote>
 <p>scrapy startproject ProjectName  </p>
 </blockquote>
-</li>
-<li>创建一个spider(参数为spider的名称及爬取的域名)<blockquote>
+<h5 id="3-创建一个spider"><a href="#3-创建一个spider" class="headerlink" title="3. 创建一个spider"></a>3. 创建一个spider</h5><p>参数为spider的名称及爬取的域名  </p>
+<blockquote>
 <p>scarpy genspider quotes quotes.toscrape.com</p>
 </blockquote>
-</li>
-</ol>
-<html><br><!--在这里插入内容--><br><img src="http://orocn2hbr.bkt.clouddn.com/scra.png" width="50%" height="50%"><br></html>
+<html><br><!--在这里插入内容--><br><img src="http://orocn2hbr.bkt.clouddn.com/scra.png" width="40%" height="40%"><br></html>
 
-
-
-
-
-
-<h4 id="二-提取数据"><a href="#二-提取数据" class="headerlink" title="二. 提取数据"></a>二. 提取数据</h4><h6 id="爬取的目标站点是http-quotes-toscrape-com"><a href="#爬取的目标站点是http-quotes-toscrape-com" class="headerlink" title="爬取的目标站点是http://quotes.toscrape.com/"></a>爬取的目标站点是<a href="http://quotes.toscrape.com/" target="_blank" rel="external">http://quotes.toscrape.com/</a></h6><ol>
-<li>进入Shell<blockquote>
+<h4 id="二-提取数据"><a href="#二-提取数据" class="headerlink" title="二. 提取数据"></a>二. 提取数据</h4><p>爬取的目标站点是<a href="http://quotes.toscrape.com/" target="_blank" rel="external">http://quotes.toscrape.com/</a></p>
+<h5 id="1-进入Shell"><a href="#1-进入Shell" class="headerlink" title="1. 进入Shell"></a>1. 进入Shell</h5><blockquote>
 <p>scrapy shell ‘<a href="http://quotes.toscrape.com/" target="_blank" rel="external">http://quotes.toscrape.com/</a>‘</p>
-</blockquote>
-</li>
-<li>使用response对象的css选择器<br>返回一个SelectorList对象，可以通过extract()或extract_first()提取内容（相当于一个是find_all一个是find()）<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [11]: response.css(&apos;title&apos;)</div><div class="line">Out[11]: [&lt;Selector xpath=&apos;descendant-or-self::title&apos; data=&apos;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&apos;&gt;]</div><div class="line"></div><div class="line">In [12]: response.css(&apos;title::text&apos;)</div><div class="line">Out[12]: [&lt;Selector xpath=&apos;descendant-or-self::title/text()&apos; data=&apos;Quotes to Scrape&apos;&gt;]</div><div class="line"></div><div class="line">In [13]: response.css(&apos;title::text&apos;).extract()</div><div class="line">Out[13]: [&apos;Quotes to Scrape&apos;]</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p>‘title::text’ 意味着选择在<title>中的text元素；通过extract()提取title中的内容</title></p>
-<ol>
-<li>使用re()+正则表达式<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [15]: response.css(&apos;title::text&apos;).re(r&apos;Quotes.*&apos;)</div><div class="line">Out[15]: [&apos;Quotes to Scrape&apos;]</div><div class="line"></div><div class="line">In [16]: response.css(&apos;title::text&apos;).re(r&apos;\w+&apos;)</div><div class="line">Out[16]: [&apos;Quotes&apos;, &apos;to&apos;, &apos;Scrape&apos;]</div><div class="line"></div><div class="line">In [17]: response.css(&apos;title::text&apos;).re(r&apos;Q\w+&apos;)</div><div class="line">Out[17]: [&apos;Quotes&apos;]</div></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<ol>
-<li>提取名人名言<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [1]: quotes = response.css(&apos;div.quote&apos;)</div><div class="line"></div><div class="line">In [2]: quote1 = quotes[0]</div><div class="line"></div><div class="line">In [3]: title1 = quote1.css(&apos;.text::text&apos;).extract_first()</div><div class="line"></div><div class="line">In [4]: title1</div><div class="line">Out[4]: &apos;“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”&apos;</div><div class="line"></div><div class="line">In [5]: author1 = quote1.css(&apos;.author::text&apos;).extract_first()</div><div class="line"></div><div class="line">In [6]: author1</div><div class="line">Out[6]: &apos;Albert Einstein&apos;</div><div class="line"></div><div class="line">In [7]: tags1 = quote1.css(&apos;.tags .tag::text&apos;).extract()</div><div class="line"></div><div class="line">In [8]: tags1</div><div class="line">Out[8]: [&apos;change&apos;, &apos;deep-thoughts&apos;, &apos;thinking&apos;, &apos;world&apos;]</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="三-开发爬虫"><a href="#三-开发爬虫" class="headerlink" title="三. 开发爬虫"></a>三. 开发爬虫</h4><ol>
-<li>爬数据<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">items.py</div><div class="line"># 用来保存数据的数据结构</div><div class="line"></div><div class="line">import scrapy</div><div class="line"></div><div class="line">class LearnscrapyItem(scrapy.Item):</div><div class="line">    # define the fields for your item here like:</div><div class="line">    # name = scrapy.Field()</div><div class="line">    text = scrapy.Field()</div><div class="line">    author = scrapy.Field()</div><div class="line">    tags = scrapy.Field()</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">quotes.py</div><div class="line"># 爬虫</div><div class="line">import scrapy</div><div class="line">from learnScrapy.items import LearnscrapyItem</div><div class="line"></div><div class="line">class QuotesSpider(scrapy.Spider):</div><div class="line">    # 指定爬虫的名字，唯一标识，不能重复</div><div class="line">    name = &apos;quotes&apos;</div><div class="line">    allowed_domains = [&apos;quotes.toscrape.com&apos;]</div><div class="line">    start_urls = [&apos;http://quotes.toscrape.com/&apos;]</div><div class="line"></div><div class="line">    # 请求连接后默认会调用这个方法</div><div class="line">    def parse(self, response):</div><div class="line">        quotes = response.css(&apos;.quote&apos;)</div><div class="line">        for quote in quotes:</div><div class="line">            item = LearnscrapyItem()</div><div class="line">            text = quote.css(&apos;.treext::text&apos;).extract_first()</div><div class="line">            author = quote.css(&apos;.author::text&apos;).extract_first()</div><div class="line">            tags = quote.css(&apos;.tags .tag::text&apos;).extract()</div><div class="line">            item[&apos;text&apos;] = text</div><div class="line">            item[&apos;author&apos;] = author</div><div class="line">            item[&apos;tags&apos;] = tags</div><div class="line">            yield item</div></pre></td></tr></table></figure>
+<h5 id="2-使用response对象的css选择器"><a href="#2-使用response对象的css选择器" class="headerlink" title="2. 使用response对象的css选择器"></a>2. 使用response对象的css选择器</h5></blockquote>
+<p>返回一个SelectorList对象，可以通过extract()或extract_first()提取内容（相当于一个是find_all一个是find()）<br>‘title::text’意味着选择在title标签中的text元素；通过extract()提取title中的内容   </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [11]: response.css(&apos;title&apos;)</div><div class="line">Out[11]: [&lt;Selector xpath=&apos;descendant-or-self::title&apos; data=&apos;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&apos;&gt;]</div><div class="line"></div><div class="line">In [12]: response.css(&apos;title::text&apos;)</div><div class="line">Out[12]: [&lt;Selector xpath=&apos;descendant-or-self::title/text()&apos; data=&apos;Quotes to Scrape&apos;&gt;]</div><div class="line"></div><div class="line">In [13]: response.css(&apos;title::text&apos;).extract()</div><div class="line">Out[13]: [&apos;Quotes to Scrape&apos;]</div></pre></td></tr></table></figure>
+<h5 id="3-使用re-正则表达式"><a href="#3-使用re-正则表达式" class="headerlink" title="3. 使用re()+正则表达式"></a>3. 使用re()+正则表达式</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [15]: response.css(&apos;title::text&apos;).re(r&apos;Quotes.*&apos;)</div><div class="line">Out[15]: [&apos;Quotes to Scrape&apos;]</div><div class="line"></div><div class="line">In [16]: response.css(&apos;title::text&apos;).re(r&apos;\w+&apos;)</div><div class="line">Out[16]: [&apos;Quotes&apos;, &apos;to&apos;, &apos;Scrape&apos;]</div><div class="line"></div><div class="line">In [17]: response.css(&apos;title::text&apos;).re(r&apos;Q\w+&apos;)</div><div class="line">Out[17]: [&apos;Quotes&apos;]</div></pre></td></tr></table></figure>
+<h5 id="4-提取名人名言"><a href="#4-提取名人名言" class="headerlink" title="4. 提取名人名言"></a>4. 提取名人名言</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [1]: quotes = response.css(&apos;div.quote&apos;)</div><div class="line"></div><div class="line">In [2]: quote1 = quotes[0]</div><div class="line"></div><div class="line">In [3]: title1 = quote1.css(&apos;.text::text&apos;).extract_first()</div><div class="line"></div><div class="line">In [4]: title1</div><div class="line">Out[4]: &apos;“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”&apos;</div><div class="line"></div><div class="line">In [5]: author1 = quote1.css(&apos;.author::text&apos;).extract_first()</div><div class="line"></div><div class="line">In [6]: author1</div><div class="line">Out[6]: &apos;Albert Einstein&apos;</div><div class="line"></div><div class="line">In [7]: tags1 = quote1.css(&apos;.tags .tag::text&apos;).extract()</div><div class="line"></div><div class="line">In [8]: tags1</div><div class="line">Out[8]: [&apos;change&apos;, &apos;deep-thoughts&apos;, &apos;thinking&apos;, &apos;world&apos;]</div></pre></td></tr></table></figure>
+<h4 id="三-开发爬虫"><a href="#三-开发爬虫" class="headerlink" title="三. 开发爬虫"></a>三. 开发爬虫</h4><h5 id="1-爬数据"><a href="#1-爬数据" class="headerlink" title="1. 爬数据"></a>1. 爬数据</h5><p>items.py：用来保存数据的数据结构<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import scrapy</div><div class="line"></div><div class="line">class LearnscrapyItem(scrapy.Item):</div><div class="line">    # define the fields for your item here like:</div><div class="line">    # name = scrapy.Field()</div><div class="line">    text = scrapy.Field()</div><div class="line">    author = scrapy.Field()</div><div class="line">    tags = scrapy.Field()</div></pre></td></tr></table></figure></p>
+<p>quotes.py : 爬虫<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import scrapy</div><div class="line">from learnScrapy.items import LearnscrapyItem</div><div class="line"></div><div class="line">class QuotesSpider(scrapy.Spider):</div><div class="line">    # 指定爬虫的名字，唯一标识，不能重复</div><div class="line">    name = &apos;quotes&apos;</div><div class="line">    allowed_domains = [&apos;quotes.toscrape.com&apos;]</div><div class="line">    start_urls = [&apos;http://quotes.toscrape.com/&apos;]</div><div class="line"></div><div class="line">    # 请求连接后默认会调用这个方法</div><div class="line">    def parse(self, response):</div><div class="line">        quotes = response.css(&apos;.quote&apos;)</div><div class="line">        for quote in quotes:</div><div class="line">            item = LearnscrapyItem()</div><div class="line">            text = quote.css(&apos;.treext::text&apos;).extract_first()</div><div class="line">            author = quote.css(&apos;.author::text&apos;).extract_first()</div><div class="line">            tags = quote.css(&apos;.tags .tag::text&apos;).extract()</div><div class="line">            item[&apos;text&apos;] = text</div><div class="line">            item[&apos;author&apos;] = author</div><div class="line">            item[&apos;tags&apos;] = tags</div><div class="line">            yield item</div></pre></td></tr></table></figure></p>
 <p>然后在命令行中输入以下命令开始爬取</p>
 <blockquote>
 <p>scrapy crawl quotes  </p>
 </blockquote>
 <p>运行结果如下<br><img src="http://orocn2hbr.bkt.clouddn.com/quotes.png" alt="image"></p>
-<ol>
-<li>保存数据<blockquote>
+<h5 id="2-保存数据"><a href="#2-保存数据" class="headerlink" title="2. 保存数据"></a>2. 保存数据</h5><blockquote>
 <p>scrapy crawl quotes -o quotes.json    </p>
 </blockquote>
-</li>
-</ol>
 <p>支持的格式<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">the supported list (&apos;jsonlines&apos;, &apos;pickle&apos;, &apos;jl&apos;, &apos;csv&apos;, &apos;xml&apos;, &apos;json&apos;, &apos;marshal&apos;)</div></pre></td></tr></table></figure></p>
 <h4 id="四-翻页"><a href="#四-翻页" class="headerlink" title="四. 翻页"></a>四. 翻页</h4><p>由于第一页的地址是<a href="http://quotes.toscrape.com/page/1/，第二页的地址是http://quotes.toscrape.com/page/2/，不难发现规律，并且我们在网页源代码中注意到有如下代码" target="_blank" rel="external">http://quotes.toscrape.com/page/1/，第二页的地址是http://quotes.toscrape.com/page/2/，不难发现规律，并且我们在网页源代码中注意到有如下代码</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;nav&gt;</div><div class="line">    &lt;ul class=&quot;pager&quot;&gt;</div><div class="line">        &lt;li class=&quot;next&quot;&gt;</div><div class="line">            &lt;a href=&quot;/page/2/&quot;&gt;Next &lt;span aria-hidden=&quot;true&quot;&gt;&amp;rarr;&lt;/span&gt;&lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/nav&gt;</div></pre></td></tr></table></figure></p>
 <p>现在来爬取欲翻页的链接，我们想要得到的是href属性的内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">In [1]: response.css(&apos;.next a&apos;).extract()</div><div class="line">Out[1]: [&apos;&lt;a href=&quot;/page/2/&quot;&gt;Next &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&apos;]</div><div class="line"></div><div class="line">In [2]: response.css(&apos;li.next a::attr(href)&apos;).extract_first()</div><div class="line">Out[2]: &apos;/page/2/&apos;</div></pre></td></tr></table></figure></p>
-<p>然后我们在quotes.py中继续添加如下代码（两种方法）：</p>
-<ol>
-<li><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">next_page = response.css(&apos;li.next a::attr(href)&apos;).extract_first() </div><div class="line">if next_page is not None:</div><div class="line">    next_page = response.urljoin(next_page) </div><div class="line">    yield scrapy.Request(next_page, callback=self.parse)</div></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>然后我们在quotes.py中继续添加如下代码（两种方法）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">next_page = response.css(&apos;li.next a::attr(href)&apos;).extract_first() </div><div class="line">if next_page is not None:</div><div class="line">    next_page = response.urljoin(next_page) </div><div class="line">    yield scrapy.Request(next_page, callback=self.parse)</div></pre></td></tr></table></figure></p>
 <blockquote>
 <p>urljoin(url) : Constructs an absolute url by combining the Response’s url with a possible relative url.  </p>
 </blockquote>
-<ol>
-<li>response对象的follow()方法返回一个Request实例来跟随一个url<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">next_page = response.css(&apos;li.next a::attr(href)&apos;).extract_first()</div><div class="line">    if next_page is not None:</div><div class="line">        yield response.follow(next_page, callback=self.parse)</div></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>第二种：response对象的follow()方法返回一个Request实例来跟随一个url<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">next_page = response.css(&apos;li.next a::attr(href)&apos;).extract_first()</div><div class="line">    if next_page is not None:</div><div class="line">        yield response.follow(next_page, callback=self.parse)</div></pre></td></tr></table></figure></p>
 
                 <hr>
                 
@@ -288,7 +252,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#笔记内容整理自scrapy1-5官方文档"><span class="toc-text">笔记内容整理自scrapy1.5官方文档</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Python3-5-scrapy1-5"><span class="toc-text">Python3.5 scrapy1.5</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一-配置"><span class="toc-text">一. 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-提取数据"><span class="toc-text">二. 提取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#爬取的目标站点是http-quotes-toscrape-com"><span class="toc-text">爬取的目标站点是http://quotes.toscrape.com/</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三-开发爬虫"><span class="toc-text">三. 开发爬虫</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四-翻页"><span class="toc-text">四. 翻页</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-配置"><span class="toc-text">一. 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-安装-macOS"><span class="toc-text">1. 安装(macOS)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-创建一个项目"><span class="toc-text">2. 创建一个项目</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-创建一个spider"><span class="toc-text">3. 创建一个spider</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-提取数据"><span class="toc-text">二. 提取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-进入Shell"><span class="toc-text">1. 进入Shell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-使用response对象的css选择器"><span class="toc-text">2. 使用response对象的css选择器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-使用re-正则表达式"><span class="toc-text">3. 使用re()+正则表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-提取名人名言"><span class="toc-text">4. 提取名人名言</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三-开发爬虫"><span class="toc-text">三. 开发爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-爬数据"><span class="toc-text">1. 爬数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-保存数据"><span class="toc-text">2. 保存数据</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四-翻页"><span class="toc-text">四. 翻页</span></a></li></ol>
                 </div>
             </div>
         </div>
