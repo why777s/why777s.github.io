@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        redis基础｜why777s&#39;s blog
+        jsoup学习记录｜why777s&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://why777s.github.io/2018/01/20/redis基础/">
+    <link rel="canonical" href="http://why777s.github.io/2018/03/17/jsoup/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,18 +153,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>redis基础</h1>
+                    <h1>jsoup学习记录</h1>
                     
                     <span class="meta">
                          作者 why777s
                         <span>
-                          日期 2018-01-20
+                          日期 2018-03-17
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#redis"
-                           title="redis">redis</a>
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#爬虫"
+                           title="爬虫">爬虫</a>
                         
                     </div>
                 </div>
@@ -173,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            redis基础
+            jsoup学习记录
         </span>
     </div>
 </header>
@@ -184,62 +187,49 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="一-Redis安装"><a href="#一-Redis安装" class="headerlink" title="一. Redis安装"></a>一. Redis安装</h3><p>Mac  </p>
-<ol>
-<li>安装Homebrew（使用Homebrew安装redis最方便）<br>将以下命令粘贴至终端<blockquote>
-<p>/usr/bin/ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install" target="_blank" rel="external">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)”</p>
-</blockquote>
-</li>
-<li>安装redis<blockquote>
-<p>brew install redis</p>
-</blockquote>
-</li>
-<li>使用redis服务<blockquote>
-<p>redis-server /usr/local/etc/redis.conf</p>
-</blockquote>
-</li>
-<li>启动redis<blockquote>
-<p>redis-cli</p>
-</blockquote>
-</li>
-<li>检测redis服务是否启动<blockquote>
-<p>127.0.0.1:6379&gt; ping<br>PONG</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="二-基本命令"><a href="#二-基本命令" class="headerlink" title="二. 基本命令"></a>二. 基本命令</h3><p>Redis支持五种数据类型：  </p>
-<ul>
-<li>string</li>
-<li>hash：一个键值对的集合</li>
-<li>list</li>
-<li>set</li>
-<li>zset(sortedset)  </li>
+                <h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><h5 id="数据输入"><a href="#数据输入" class="headerlink" title="数据输入"></a>数据输入</h5><ul>
+<li><code>Jsoup.parse(String html)</code> 解析一个Html字符串为<code>Document</code>对象</li>
+<li><code>Jsoup.parseBodyFragment(String html)</code> 创建一个空的Document并插入解析过的html到Body元素</li>
+<li><code>Document.body()</code> 获取Body的所有子元素</li>
+<li><code>Jsoup.connect(url).get()</code> 创建一个新的Connection然后get()取得和解析一个html</li>
 </ul>
-<p>（详情参考 ① <a href="http://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="external">http://www.runoob.com/redis/redis-tutorial.html</a>  ②<a href="https://redis.io/commands）" target="_blank" rel="external">https://redis.io/commands）</a></p>
-<h4 id="1-key命令"><a href="#1-key命令" class="headerlink" title="1. key命令"></a>1. key命令</h4><p>key命令用于管理redis的键</p>
-<blockquote>
-<p>基本语法：127.0.0.1:6379&gt; COMMAND KEY<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; set myKey hello   </div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; exists myKey</div><div class="line">(integer) 1</div><div class="line">127.0.0.1:6379&gt; get myKey</div><div class="line">&quot;hello&quot;</div><div class="line">127.0.0.1:6379&gt; del myKey</div><div class="line">(integer) 1</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="2-Hash命令"><a href="#2-Hash命令" class="headerlink" title="2. Hash命令"></a>2. Hash命令</h4><p>Redis Hash 是一个String类型的field和value的映射表，适合存储对象。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; HMSET myHash field1 &quot;hello&quot; field2 &quot;world&quot;</div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; HGET myHash field1</div><div class="line">&quot;hello&quot;</div><div class="line">127.0.0.1:6379&gt; HGET myHash field2</div><div class="line">&quot;world&quot;</div><div class="line">127.0.0.1:6379&gt; HGETALL myHash</div><div class="line">1) &quot;field1&quot;</div><div class="line">2) &quot;hello&quot;</div><div class="line">3) &quot;field2&quot;</div><div class="line">4) &quot;world&quot;</div><div class="line">127.0.0.1:6379&gt;</div></pre></td></tr></table></figure>
-<h4 id="3-List命令"><a href="#3-List命令" class="headerlink" title="3. List命令"></a>3. List命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; LPUSH myList dog</div><div class="line">(integer) 1</div><div class="line">127.0.0.1:6379&gt; LPUSH myList cat</div><div class="line">(integer) 2</div><div class="line">127.0.0.1:6379&gt; LPUSH myList tiger lion </div><div class="line">(integer) 4</div><div class="line">127.0.0.1:6379&gt; LRANGE myList</div><div class="line">(error) ERR wrong number of arguments for &apos;lrange&apos; command</div><div class="line">127.0.0.1:6379&gt; LRANGE myList 0 3</div><div class="line">1) &quot;lion&quot;</div><div class="line">2) &quot;tiger&quot;</div><div class="line">3) &quot;cat&quot;</div><div class="line">4) &quot;dog&quot;</div><div class="line">127.0.0.1:6379&gt; LPOP myList</div><div class="line">&quot;lion&quot;</div><div class="line">127.0.0.1:6379&gt; LLEN myList</div><div class="line">(integer) 3</div><div class="line">127.0.0.1:6379&gt; LRANGE myList 0 2</div><div class="line">1) &quot;tiger&quot;</div><div class="line">2) &quot;cat&quot;</div><div class="line">3) &quot;dog&quot;</div><div class="line">127.0.0.1:6379&gt;</div></pre></td></tr></table></figure>
-<h4 id="3-Set命令"><a href="#3-Set命令" class="headerlink" title="3. Set命令"></a>3. Set命令</h4><p>Redis的Set是String类型的无序集合。集合中不能出现重复的元素。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; SADD mySet a</div><div class="line">(integer) 1</div><div class="line">127.0.0.1:6379&gt; SADD mySet b c d e</div><div class="line">(integer) 4</div><div class="line">127.0.0.1:6379&gt; SMEMBERS mySet</div><div class="line">1) &quot;d&quot;</div><div class="line">2) &quot;a&quot;</div><div class="line">3) &quot;c&quot;</div><div class="line">4) &quot;b&quot;</div><div class="line">5) &quot;e&quot;</div><div class="line">127.0.0.1:6379&gt; SADD mySet a</div><div class="line">(integer) 0</div><div class="line">127.0.0.1:6379&gt; SCARD mySet</div><div class="line">(integer) 5</div></pre></td></tr></table></figure></p>
-<h4 id="4-SortedSet命令"><a href="#4-SortedSet命令" class="headerlink" title="4. SortedSet命令"></a>4. SortedSet命令</h4><p>每个元素关联一个double类型的分数，redis通过这个分数为集合中的成员进行从小到大的排序。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; ZADD mySortedSet 1 ss1 2 ss2 3 ss3</div><div class="line">(integer) 3</div><div class="line">127.0.0.1:6379&gt; ZRANGE mySortedSet 0 2 WITHSCORES</div><div class="line">1) &quot;ss1&quot;</div><div class="line">2) &quot;1&quot;</div><div class="line">3) &quot;ss2&quot;</div><div class="line">4) &quot;2&quot;</div><div class="line">5) &quot;ss3&quot;</div><div class="line">6) &quot;3&quot;</div><div class="line">127.0.0.1:6379&gt;</div></pre></td></tr></table></figure></p>
+<h5 id="数据抽取"><a href="#数据抽取" class="headerlink" title="数据抽取"></a>数据抽取</h5><ul>
+<li>可以用DOM方法抽取并处理数据，如<code>getElementbyId(String id)</code>、<code>getElementsByClass(String className)</code></li>
+<li>Selector选择器（可以组合使用）:<ul>
+<li><code>tagName</code></li>
+<li><code>#id</code></li>
+<li><code>.class</code></li>
+<li><code>[attribute]</code></li>
+<li><code>[attr=value]</code></li>
+<li>更多请参考官方文档:<a href="https://jsoup.org/apidocs/org/jsoup/select/Selector.html" target="_blank" rel="external">https://jsoup.org/apidocs/org/jsoup/select/Selector.html</a></li>
+</ul>
+</li>
+<li><code>Node.attr(String key)</code> 取得一个属性的值</li>
+<li><code>Element.text()</code> 获得元素的文本</li>
+<li><code>Element.html()</code>返回innerHtml、<code>Node.outerHtml()</code>返回outerHtml</li>
+<li><code>Node.absUrl(String key)</code> 返回绝对路径</li>
+</ul>
+<h5 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h5><ul>
+<li><code>Element.attr(String keyi, String value)</code>、<code>Elements.attr(String key, String value)</code> 设置属性</li>
+<li><code>Element.addClass(String className)</code>、<code>Element.removeClass(String className)</code> 修改一个<code>class</code>属性</li>
+<li><code>Element.html(String html)</code> 这个方法将先清除元素中的HTML内容，然后用传入的HTML代替。</li>
+<li><code>Element.prepend(String first)</code> 和<code>Element.append(String last)</code> 方法用于在分别在元素内部HTML的前面和后面添加HTML内容或者文本</li>
+<li><code>Element.wrap(String around)</code> 对元素包裹一个外部HTML内容。</li>
+<li><code>Element.text(String text)</code> 清楚一个元素中的html内容，然后将提供的文本替代</li>
+</ul>
+<h4 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h4><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>比如我们想要爬取<code>https://thenextweb.com/insider/2018/03/17/china-to-ban-citizens-with-bad-social-credit-from-some-forms-of-travel/</code>上的文章内容、标题、作者名、图片等信息<br><img src="http://orocn2hbr.bkt.clouddn.com/thenext.png" alt="image"></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public class test &#123;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        String url =&quot;https://thenextweb.com/insider/2018/03/17/china-to-ban-citizens-with-bad-social-credit-from-some-forms-of-travel/&quot;;</div><div class="line">        Document doc = getDocumentByUrl(url);</div><div class="line"></div><div class="line">        // 日期 对时间的格式简单处理一下</div><div class="line">        Element dateElement = doc.select(&quot;time.timeago&quot;).first();</div><div class="line">        String strdate = dateElement.attr(&quot;datetime&quot;).trim()</div><div class="line">                .substring(0, 19).replace(&quot;T&quot;, &quot; &quot;);</div><div class="line"></div><div class="line">        Element authorElement = doc.select(&quot;.post-header .post-authorName&quot;).first();</div><div class="line">        String author = authorElement.text().trim();</div><div class="line"></div><div class="line"></div><div class="line">        // 文章标题</div><div class="line">        Element titleElement = doc.select(&quot;.post-header h1&quot;).first();</div><div class="line">        String title = titleElement.text();</div><div class="line"></div><div class="line">        // 首页图片</div><div class="line">        Element thumbElement = doc.select(&quot;.post-featuredImage img[src]&quot;).first();</div><div class="line">        String thumb = thumbElement.attr(&quot;src&quot;);</div><div class="line"></div><div class="line">        // 获取全文内容 先删除一些广告等无关信息</div><div class="line">        doc.select(&quot;.post-in-content-tags&quot;).remove();</div><div class="line">        doc.select(&quot;.post-article-read-next&quot;).remove();</div><div class="line">        doc.select(&quot;.post-paidNotice&quot;).remove();</div><div class="line">        Element contentElement = doc.select(&quot;.content&quot;).first();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        System.out.println(&quot;文章标题: &quot;+ title);</div><div class="line">        System.out.println(&quot;发表日期: &quot;+ strdate);</div><div class="line">        System.out.println(&quot;作者: &quot; + author);</div><div class="line">        System.out.println(thumb);</div><div class="line">//        System.out.println(contentElement.outerHtml());</div><div class="line"></div><div class="line"></div><div class="line">        // 文章内会有一些懒加载的图片</div><div class="line">        Elements lazyPicElements = doc.select(&quot;.post-image img[data-src]&quot;);</div><div class="line">        for (Element lazyPicElement : lazyPicElements)&#123;</div><div class="line">            lazyPicElement.attr(&quot;srcset&quot; , lazyPicElement.attr(&quot;data-src&quot;));</div><div class="line">//            System.out.println(&quot;懒加载图片src: &quot;+lazyPicElement.attr(&quot;src&quot;));</div><div class="line">            System.out.println(&quot;懒加载图片真正的src: &quot; +lazyPicElement.attr(&quot;srcset&quot;));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    private static Document getDocumentByUrl(String url) &#123;</div><div class="line">        Document document = null;</div><div class="line">        try &#123;</div><div class="line">            //为了防止被屏蔽，加个user-agent什么的</div><div class="line">            Connection.Response response = Jsoup.connect(url)</div><div class="line">                    .userAgent(&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36&quot;)</div><div class="line">                    .header(&quot;Accept&quot;, &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&quot;)</div><div class="line">                    .timeout(10000)</div><div class="line">                    .execute();</div><div class="line">            document = response.parse();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return document;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><p><img src="http://orocn2hbr.bkt.clouddn.com/res.png" alt="image"></p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/01/21/thread/" data-toggle="tooltip" data-placement="top"
-                           title="Java多线程笔记">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2018/01/19/exception/" data-toggle="tooltip" data-placement="top"
-                           title="Java异常处理笔记">Next Post &rarr;</a>
+                        <a href="/2018/02/20/scrapy/" data-toggle="tooltip" data-placement="top"
+                           title="scrapy笔记">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -255,7 +245,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-Redis安装"><span class="toc-text">一. Redis安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-基本命令"><span class="toc-text">二. 基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-key命令"><span class="toc-text">1. key命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Hash命令"><span class="toc-text">2. Hash命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-List命令"><span class="toc-text">3. List命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Set命令"><span class="toc-text">3. Set命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-SortedSet命令"><span class="toc-text">4. SortedSet命令</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本用法"><span class="toc-text">基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#数据输入"><span class="toc-text">数据输入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数据抽取"><span class="toc-text">数据抽取</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数据处理"><span class="toc-text">数据处理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实战"><span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#运行结果"><span class="toc-text">运行结果</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -277,8 +267,11 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#redis"
-                           title="redis">redis</a>
+                        <a class="tag" href="/tags/#Java"
+                           title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#爬虫"
+                           title="爬虫">爬虫</a>
                         
                     </div>
                 </section>
